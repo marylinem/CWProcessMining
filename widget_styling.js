@@ -43,5 +43,5 @@
         }
     }
 
-    customElements.define("com-demo.jointjs-styling", JointJSStylingPanel);
+    customElements.define("com-demo-jointjs-styling", JointJSStylingPanel);
 })();
