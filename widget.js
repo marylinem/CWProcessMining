@@ -34,7 +34,7 @@
             let shadowRoot = this.attachShadow({ mode: "open" });
             shadowRoot.appendChild(template.content.cloneNode(true));
             this._props = {};
-            var namespace = joint.shapes;
+            /*var namespace = joint.shapes;
 
             var graph = new joint.dia.Graph({}, { cellNamespace: namespace });
 
@@ -69,7 +69,7 @@
             var link = new joint.shapes.standard.Link();
             link.source(rect);
             link.target(rect2);
-            link.addTo(graph);
+            link.addTo(graph);*/
         }
         onCustomWidgetBeforeUpdate(changedProperties) {
             this._props = { ...this._props, ...changedProperties };
