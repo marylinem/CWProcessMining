@@ -52,8 +52,8 @@
     class JointJS extends HTMLElement {
         constructor() {
             super();
-            let shadowRoot = this.attachShadow({ mode: "open" });
-            shadowRoot.appendChild(template.content.cloneNode(true));
+            // let shadowRoot = this.attachShadow({ mode: "open" });
+            this.appendChild(template.content.cloneNode(true));
             this._props = {};
             this.addEventListener("click", event => {
                 var event = new Event("onClick");
@@ -84,6 +84,7 @@
         console.log("Loaded JointJS")
         var namespace = joint.shapes;
 
+        console.log(document.getElementById('diagram-container'))
 
         var graph = new joint.dia.Graph({}, { cellNamespace: namespace });
 
