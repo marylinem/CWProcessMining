@@ -43,6 +43,10 @@
             let shadowRoot = this.attachShadow({ mode: "open" });
             shadowRoot.appendChild(template.content.cloneNode(true));
             this._props = {};
+            this.addEventListener("click", event => {
+                var event = new Event("onClick");
+                this.dispatchEvent(event);
+            });
             console.log("Constructing JointJS")
 
         }
