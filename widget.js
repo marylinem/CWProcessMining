@@ -14,26 +14,29 @@
     <div id='diagram-container'></div>
     `;
     console.log("Loading Scripts")
-    let scriptJQuery = document.createElement("script")
-    scriptJQuery.type = "text/javascript";
-    scriptJQuery.src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js";
-    scriptJQuery.defer = false;
-    scriptJQuery.async = false;
-    // document.head.appendChild(scriptJQuery);
 
-    let scriptLodash = document.createElement("script")
-    scriptLodash.type = "text/javascript";
-    scriptLodash.src = "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.js";
-    scriptLodash.defer = false;
-    scriptLodash.async = false;
-    // document.head.appendChild(scriptLodash);
+    function loadScript(src) {
+        let scripts = window.sessionStorage.getItem("customScripts") || []
+        let stored = scripts.find((e) => e.scriptSrc == src);
+        if (!stored) {
+            let script = document.createElement("script")
+            script.type = "text/javascript";
+            script.src = src;
+            script.defer = false;
+            script.async = false;
+            document.head.appendChild(script);
 
-    let scriptBackbone = document.createElement("script")
-    scriptBackbone.type = "text/javascript";
-    scriptBackbone.src = "https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.1/backbone.js";
-    scriptBackbone.defer = false;
-    scriptBackbone.async = false;
-    // document.head.appendChild(scriptBackbone);
+            let obj = {
+                "src": src
+            }
+            scripts.push(obj);
+        }
+    }
+
+
+
+
+
 
 
 
@@ -63,11 +66,12 @@
         }
     }
 
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js");
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.js");
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.1/backbone.js");
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.5.5/joint.js");
+
     let scriptJoint = document.createElement("script")
-    scriptJoint.type = "text/javascript";
-    scriptJoint.src = "https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.5.5/joint.js";
-    scriptJoint.defer = false;
-    scriptJoint.async = false;
     scriptJoint.onload = function () {
         console.log("Loaded JointJS")
         var namespace = joint.shapes;
