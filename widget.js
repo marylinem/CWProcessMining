@@ -19,21 +19,21 @@
     scriptJQuery.src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js";
     scriptJQuery.defer = false;
     scriptJQuery.async = false;
-    document.head.appendChild(scriptJQuery);
+    // document.head.appendChild(scriptJQuery);
 
     let scriptLodash = document.createElement("script")
     scriptLodash.type = "text/javascript";
     scriptLodash.src = "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.js";
     scriptLodash.defer = false;
     scriptLodash.async = false;
-    document.head.appendChild(scriptLodash);
+    // document.head.appendChild(scriptLodash);
 
     let scriptBackbone = document.createElement("script")
     scriptBackbone.type = "text/javascript";
     scriptBackbone.src = "https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.1/backbone.js";
     scriptBackbone.defer = false;
     scriptBackbone.async = false;
-    document.head.appendChild(scriptBackbone);
+    // document.head.appendChild(scriptBackbone);
 
 
 
@@ -108,7 +108,7 @@
         // link.target(rect2);
         // link.addTo(graph);
     }
-    document.head.appendChild(scriptJoint);
+    // document.head.appendChild(scriptJoint);
     customElements.define("com-demo-jointjs", JointJS);
     console.log("Loading JointJS")
 
