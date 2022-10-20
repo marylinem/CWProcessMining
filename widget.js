@@ -86,15 +86,15 @@
         }
     }
 
-    // let scriptJoint = document.createElement("script")
-    // scriptJoint.type = "text/javascript";
-    // scriptJoint.src = "https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.5.5/joint.js";
-    // scriptJoint.defer = false;
-    // scriptJoint.async = false;
-    // scriptJoint.onload = function () {
-    //     console.log("Loaded JointJS")
-    // }
-    // document.head.appendChild(scriptJoint);
+    let scriptJoint = document.createElement("script")
+    scriptJoint.type = "text/javascript";
+    scriptJoint.src = "https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.5.5/joint.js";
+    scriptJoint.defer = false;
+    scriptJoint.async = false;
+    scriptJoint.onload = function () {
+        console.log("Loaded JointJS")
+    }
+    document.head.appendChild(scriptJoint);
     customElements.define("com-demo-jointjs", JointJS);
     console.log("Loading JointJS")
 
