@@ -5,6 +5,7 @@
     <style>
     </style> 
     `;
+    console.log("Loading Scripts")
     let scriptJQuery = document.createElement("script")
     scriptJQuery.type = "text/javascript";
     scriptJQuery.src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js";
@@ -34,6 +35,7 @@
             let shadowRoot = this.attachShadow({ mode: "open" });
             shadowRoot.appendChild(template.content.cloneNode(true));
             this._props = {};
+            console.log("Constructing JointJS")
             /*var namespace = joint.shapes;
 
             var graph = new joint.dia.Graph({}, { cellNamespace: namespace });
@@ -93,6 +95,6 @@
         customElements.define("com-demo-jointjs", JointJS);
     }
     document.head.appendChild(scriptJoint);
-
+    console.log("Loading JointJS")
 
 })();
