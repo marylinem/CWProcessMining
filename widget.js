@@ -65,12 +65,13 @@
 
             var namespace = joint.shapes;
 
-            console.log(this.getElementById('diagram-container'))
+
+            console.log(this)
 
             var graph = new joint.dia.Graph({}, { cellNamespace: namespace });
 
             var paper = new joint.dia.Paper({
-                el: this.getElementById('diagram-container'),
+                el: this,
                 model: graph,
                 width: 600,
                 height: 600,
