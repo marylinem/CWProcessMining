@@ -3,6 +3,13 @@
     template.innerHTML = `
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.5.5/joint.css" />
     <style>
+    :host {
+        border-radius: 25px;
+        border-width: 4px;
+        border-color: black;
+        border-style: solid;
+        display: block;
+        }
     </style> 
     <div id='diagram-container'></div>
     `;
@@ -33,8 +40,8 @@
     class JointJS extends HTMLElement {
         constructor() {
             super();
-            //let shadowRoot = this.attachShadow({ mode: "open" });
-            this.appendChild(template.content.cloneNode(true));
+            let shadowRoot = this.attachShadow({ mode: "open" });
+            shadowRoot.appendChild(template.content.cloneNode(true));
             this._props = {};
             console.log("Constructing JointJS")
 
