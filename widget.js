@@ -19,17 +19,21 @@
         let scripts = window.sessionStorage.getItem("customScripts") || []
         let stored = scripts.find((e) => e.scriptSrc == src);
         if (!stored) {
+            console.log("script not stored, creating")
             let script = document.createElement("script")
             script.type = "text/javascript";
             script.src = src;
-            script.defer = false;
-            script.async = false;
+            // script.defer = false;
+            // script.async = false;
             document.head.appendChild(script);
 
             let obj = {
                 "src": src
             }
             scripts.push(obj);
+        }
+        else {
+            console.log("script stored")
         }
     }
 
@@ -66,7 +70,7 @@
         }
     }
 
-    // loadScript("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js");
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js");
     // loadScript("https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.js");
     // loadScript("https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.1/backbone.js");
     // loadScript("https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.5.5/joint.js");
