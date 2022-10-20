@@ -34,7 +34,7 @@
         constructor() {
             super();
             //let shadowRoot = this.attachShadow({ mode: "open" });
-            shadowRoot.appendChild(template.content.cloneNode(true));
+            this.appendChild(template.content.cloneNode(true));
             this._props = {};
             console.log("Constructing JointJS")
             var namespace = joint.shapes;
