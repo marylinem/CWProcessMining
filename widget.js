@@ -8,11 +8,13 @@
         border-width: 4px;
         border-color: black;
         border-style: solid;
+        width: 500px;
+        heihgt: 500px;
         display: block;
         }
         #diagram-container {
-            width: 500px
-            height: 500px
+            width: 500px;
+            height: 500px;
         }
     </style> 
     <div id='diagram-container'></div>
@@ -61,6 +63,45 @@
             });
             console.log("Constructing JointJS")
 
+            var namespace = joint.shapes;
+
+            console.log(document.getElementById('diagram-container'))
+
+            var graph = new joint.dia.Graph({}, { cellNamespace: namespace });
+
+            var paper = new joint.dia.Paper({
+                el: document.getElementById('diagram-container'),
+                model: graph,
+                width: 600,
+                height: 600,
+                gridSize: 1,
+                cellViewNamespace: namespace
+            });
+
+            var rect = new joint.shapes.standard.Rectangle();
+            rect.position(10, 30);
+            rect.resize(100, 40);
+            rect.attr({
+                body: {
+                    fill: 'blue'
+                },
+                label: {
+                    text: 'Hello',
+                    fill: 'white'
+                }
+            });
+            rect.addTo(graph);
+
+            var rect2 = rect.clone();
+            rect2.translate(300, 0);
+            rect2.attr('label/text', 'World!');
+            rect2.addTo(graph);
+
+            var link = new joint.shapes.standard.Link();
+            link.source(rect);
+            link.target(rect2);
+            link.addTo(graph);
+
         }
         onCustomWidgetBeforeUpdate(changedProperties) {
             this._props = { ...this._props, ...changedProperties };
@@ -82,47 +123,10 @@
 
     let scriptCB = function () {
         console.log("Loaded JointJS")
-        var namespace = joint.shapes;
-
-        console.log(document.getElementById('diagram-container'))
-
-        var graph = new joint.dia.Graph({}, { cellNamespace: namespace });
-
-        var paper = new joint.dia.Paper({
-            el: document.getElementById('diagram-container'),
-            model: graph,
-            width: 600,
-            height: 600,
-            gridSize: 1,
-            cellViewNamespace: namespace
-        });
-
-        var rect = new joint.shapes.standard.Rectangle();
-        rect.position(100, 30);
-        rect.resize(100, 40);
-        rect.attr({
-            body: {
-                fill: 'blue'
-            },
-            label: {
-                text: 'Hello',
-                fill: 'white'
-            }
-        });
-        rect.addTo(graph);
-
-        var rect2 = rect.clone();
-        rect2.translate(300, 0);
-        rect2.attr('label/text', 'World!');
-        rect2.addTo(graph);
-
-        var link = new joint.shapes.standard.Link();
-        link.source(rect);
-        link.target(rect2);
-        link.addTo(graph);
+        customElements.define("com-demo-jointjs", JointJS);
     }
     loadScript("https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.5.5/joint.js", scriptCB);
-    customElements.define("com-demo-jointjs", JointJS);
+
     console.log("Loading JointJS")
 
 })();
