@@ -94,10 +94,10 @@
     scriptJoint.async = false;
     scriptJoint.onload = function () {
         console.log("Loaded JointJS")
-        customElements.define("com-demo-jointjs", JointJS);
+
     }
     document.head.appendChild(scriptJoint);
-
+    customElements.define("com-demo-jointjs", JointJS);
     console.log("Loading JointJS")
 
 })();
