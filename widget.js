@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.5.5/joint.css" />
     <style>
     </style> 
+    <div id='diagram-container'></div>
     `;
     console.log("Loading Scripts")
     let scriptJQuery = document.createElement("script")
@@ -32,7 +33,7 @@
     class JointJS extends HTMLElement {
         constructor() {
             super();
-            let shadowRoot = this.attachShadow({ mode: "open" });
+            //let shadowRoot = this.attachShadow({ mode: "open" });
             shadowRoot.appendChild(template.content.cloneNode(true));
             this._props = {};
             console.log("Constructing JointJS")
@@ -41,7 +42,7 @@
             var graph = new joint.dia.Graph({}, { cellNamespace: namespace });
 
             var paper = new joint.dia.Paper({
-                el: this,
+                el: document.getElementById('diagram-container'),
                 model: graph,
                 width: 600,
                 height: 600,
