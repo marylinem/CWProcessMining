@@ -66,7 +66,7 @@
                 console.log(n);
                 let rect = new joint.shapes.standard.Rectangle();
                 rect.position(px, py);
-                rect.resize(100, 40);
+                rect.resize(130, 40);
                 py += 40;
                 px += 40;
                 rect.attr({
