@@ -117,7 +117,7 @@
             if ("opacity" in changedProperties) {
                 this.style["opacity"] = changedProperties["opacity"];
             }
-            console.log("flowChartData");
+            console.log(this.flowChartData);
         }
     }
 
