@@ -51,6 +51,20 @@
     let div = document.createElement("div");
 
     class JointJS extends HTMLElement {
+        clearGraph() {
+            this.graph.clear();
+            this.nodes = []
+            this.relations = []
+        }
+        changeModel() {
+            if (!this.flowChartData.data) return;
+            this.clearGraph();
+            let data = this.flowChartData.data;
+            data.forEach(row => {
+                console.log(row)
+            });
+        }
+
         constructor() {
             super();
             // let shadowRoot = this.attachShadow({ mode: "open" });
@@ -71,9 +85,9 @@
 
             console.log(this)
 
-            var graph = new joint.dia.Graph({}, { cellNamespace: namespace });
+            this.graph = new joint.dia.Graph({}, { cellNamespace: namespace });
 
-            var paper = new joint.dia.Paper({
+            this.paper = new joint.dia.Paper({
                 el: container,
                 model: graph,
                 width: 600,
@@ -94,17 +108,17 @@
                     fill: 'white'
                 }
             });
-            rect.addTo(graph);
+            rect.addTo(this.graph);
 
             var rect2 = rect.clone();
             rect2.translate(300, 0);
             rect2.attr('label/text', 'World!');
-            rect2.addTo(graph);
+            rect2.addTo(this.graph);
 
             var link = new joint.shapes.standard.Link();
             link.source(rect);
             link.target(rect2);
-            link.addTo(graph);
+            link.addTo(this.graph);
 
         }
         onCustomWidgetBeforeUpdate(changedProperties) {
@@ -117,7 +131,7 @@
             if ("opacity" in changedProperties) {
                 this.style["opacity"] = changedProperties["opacity"];
             }
-            console.log(this.flowChartData);
+            this.changeModel();
         }
     }
 
