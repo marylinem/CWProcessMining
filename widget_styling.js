@@ -5,10 +5,6 @@
 			<fieldset>
 				<legend>JointJS Properties</legend>
 				<table>
-					<tr>
-						<td>Color</td>
-						<td><input id="styling_color" type="text" size="40" maxlength="40"></td>
-					</tr>
 				</table>
 				<input type="submit" style="display:none;">
 			</fieldset>
@@ -28,18 +24,9 @@
             this.dispatchEvent(new CustomEvent("propertiesChanged", {
                 detail: {
                     properties: {
-                        color: this.color
                     }
                 }
             }));
-        }
-
-        set color(newColor) {
-            this._shadowRoot.getElementById("styling_color").value = newColor;
-        }
-
-        get color() {
-            return this._shadowRoot.getElementById("styling_color").value;
         }
     }
 

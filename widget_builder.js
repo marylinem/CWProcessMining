@@ -5,11 +5,6 @@
     <fieldset>
     <legend>JointJS Properties</legend>
     <table>
-    <tr>
-    <td>Opacity</td>
-    <td><input id="builder_opacity" type="text" size="5" 
-   maxlength="5"></td>
-    </tr>
     </table>
     <input type="submit" style="display:none;">
     </fieldset>
@@ -35,17 +30,9 @@
             this.dispatchEvent(new CustomEvent("propertiesChanged", {
                 detail: {
                     properties: {
-                        opacity: this.opacity
                     }
                 }
             }));
-        }
-        set opacity(newOpacity) {
-            this._shadowRoot.getElementById("builder_opacity").value =
-                newOpacity;
-        }
-        get opacity() {
-            return this._shadowRoot.getElementById("builder_opacity").value;
         }
     }
     customElements.define("com-demo-jointjs-builder",
