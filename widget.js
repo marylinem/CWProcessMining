@@ -86,7 +86,7 @@
                 link.appendLabel({
                     attrs: {
                         text: {
-                            text: r.label
+                            text: "" + r.val
                         }
                     }
                 });
@@ -95,9 +95,9 @@
         }
 
         changeModel() {
-            if (!this.flowChartData.data && !this.flowChartData.data[0]
-                && !this.flowChartData.data[0].dimensions_0
-                && !this.flowChartData.data[0].dimensions_1) return;
+            if (!this.flowChartData.data || !this.flowChartData.data[0]
+                || !this.flowChartData.data[0].dimensions_0
+                || !this.flowChartData.data[0].dimensions_1) return;
             this.clearGraph();
             console.log("Constructing graph")
             let data = this.flowChartData.data;
