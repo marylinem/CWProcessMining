@@ -58,14 +58,17 @@
         }
 
         constructGraph() {
+            console.log("Drawing Graph")
             let px = 10;
             let py = 10;
             let nodeMap = new Map();
             this.nodes.forEach(n => {
+                console.log(n);
                 let rect = new joint.shapes.standard.Rectangle();
                 rect.position(px, py);
                 rect.resize(100, 40);
-                py += 50;
+                py += 40;
+                px += 40;
                 rect.attr({
                     body: {
                         fill: 'blue'
@@ -152,8 +155,8 @@
             this.paper = new joint.dia.Paper({
                 el: container,
                 model: this.graph,
-                width: 600,
-                height: 600,
+                width: 1200,
+                height: 1200,
                 gridSize: 1,
                 cellViewNamespace: namespace
             });
