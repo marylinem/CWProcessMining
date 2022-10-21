@@ -79,7 +79,8 @@
                 nodeMap.set(n.id, rect);
             })
 
-            this.relations.forEach(r => {
+            this.relations.forEach((r, v) => {
+                console.log(r);
                 var link = new joint.shapes.standard.Link();
                 link.source(nodeMap.get(r.n0));
                 link.target(nodeMap.get(r.n1));
@@ -100,6 +101,7 @@
                 || !this.flowChartData.data[0].dimensions_1) return;
             this.clearGraph();
             console.log("Constructing graph")
+            console.log(this.flowChartData)
             let data = this.flowChartData.data;
             let cur = null;
             let prevData = null;
