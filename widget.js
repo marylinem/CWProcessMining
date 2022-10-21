@@ -89,7 +89,7 @@
 
             this.paper = new joint.dia.Paper({
                 el: container,
-                model: graph,
+                model: this.graph,
                 width: 600,
                 height: 600,
                 gridSize: 1,
