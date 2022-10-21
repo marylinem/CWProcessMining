@@ -53,16 +53,71 @@
     class JointJS extends HTMLElement {
         clearGraph() {
             this.graph.clear();
-            this.nodes = []
-            this.relations = []
+            this.nodes = new Set < any > {};
+            this.relations = new Map < string, any > {};
         }
+
+        constructGraph() {
+            let px = 10;
+            let py = 10;
+            let nodeMap = new Map();
+            this.nodes.forEach(n => {
+                let rect = new joint.shapes.standard.Rectangle();
+                rect.position(px, py);
+                rect.resize(100, 40);
+                rect.attr({
+                    body: {
+                        fill: 'blue'
+                    },
+                    label: {
+                        text: n.label,
+                        fill: 'white'
+                    }
+                });
+                rect.addTo(this.graph);
+                nodeMap.set(n.id, rect);
+            })
+
+            this.relations.forEach(r => {
+                var link = new joint.shapes.standard.Link();
+                link.source(nodeMap.get(r.n0));
+                link.target(nodeMap.get(r.n1));
+                link.appendLabel({
+                    attrs: {
+                        text: {
+                            text: r.label
+                        }
+                    }
+                });
+                link.addTo(this.graph);
+            })
+        }
+
         changeModel() {
             if (!this.flowChartData.data) return;
             this.clearGraph();
+            console.log("Constructing graph")
             let data = this.flowChartData.data;
+            let cur = null;
+            let prevData = null;
             data.forEach(row => {
-                console.log(row)
+                let d0id = row.dimensions_0.id;
+                let d1 = row.dimensions_1;
+                if (cur == d0id) {
+                    let key = prevData.id + "_" + d1.id;
+                    this.relations.set(key, { val: (this.relations.get(key).val || 0) + 1, n0: prevData.id, n1: d1.id });
+                    prevData = d1;
+                }
+                else {
+                    cur = d0id;
+                    prevData = d1;
+                }
+                this.nodes.push({
+                    id: d1.id,
+                    label: d1.label,
+                }) // Process
             });
+            this.constructGraph();
         }
 
         constructor() {
@@ -95,30 +150,6 @@
                 gridSize: 1,
                 cellViewNamespace: namespace
             });
-
-            var rect = new joint.shapes.standard.Rectangle();
-            rect.position(10, 30);
-            rect.resize(100, 40);
-            rect.attr({
-                body: {
-                    fill: 'blue'
-                },
-                label: {
-                    text: 'Hello',
-                    fill: 'white'
-                }
-            });
-            rect.addTo(this.graph);
-
-            var rect2 = rect.clone();
-            rect2.translate(300, 0);
-            rect2.attr('label/text', 'World!');
-            rect2.addTo(this.graph);
-
-            var link = new joint.shapes.standard.Link();
-            link.source(rect);
-            link.target(rect2);
-            link.addTo(this.graph);
 
         }
         onCustomWidgetBeforeUpdate(changedProperties) {
