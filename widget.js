@@ -80,7 +80,6 @@
             })
 
             this.relations.forEach((r, v) => {
-                console.log(r);
                 var link = new joint.shapes.standard.Link();
                 link.source(nodeMap.get(r.n0));
                 link.target(nodeMap.get(r.n1));
@@ -111,7 +110,9 @@
                 let d1 = row.dimensions_1;
                 if (cur == d0id) {
                     let key = prevData.id + "_" + d1.id;
-                    this.relations.set(key, { val: (this.relations.get(key).val || 0) + 1, n0: prevData.id, n1: d1.id });
+                    let val = 0;
+                    if (this.relations.get(key)) val = this.relations.get(key).val;
+                    this.relations.set(key, { val: val + 1, n0: prevData.id, n1: d1.id });
                     prevData = d1;
                 }
                 else {
