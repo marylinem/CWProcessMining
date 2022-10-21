@@ -95,13 +95,16 @@
         }
 
         changeModel() {
-            if (!this.flowChartData.data) return;
+            if (!this.flowChartData.data && !this.flowChartData.data[0]
+                && !this.flowChartData.data[0].dimensions_0
+                && !this.flowChartData.data[0].dimensions_1) return;
             this.clearGraph();
             console.log("Constructing graph")
             let data = this.flowChartData.data;
             let cur = null;
             let prevData = null;
             data.forEach(row => {
+                console.log(row);
                 let d0id = row.dimensions_0.id;
                 let d1 = row.dimensions_1;
                 if (cur == d0id) {
@@ -113,7 +116,7 @@
                     cur = d0id;
                     prevData = d1;
                 }
-                this.nodes.push({
+                this.nodes.add({
                     id: d1.id,
                     label: d1.label,
                 }) // Process
