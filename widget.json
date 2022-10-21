@@ -1,6 +1,6 @@
 {
     "id": "com.demo.jointjs",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "name": "Demo JointJS",
     "description": "A JointJS Demo",
     "newInstancePrefix": "JointJS",
@@ -31,47 +31,27 @@
             "ignoreIntegrity": true
         }
     ],
-    "properties": {
-        "color": {
-            "type": "string",
-            "description": "Background color",
-            "default": "red"
-        },
-        "opacity": {
-            "type": "number",
-            "description": "Opacity",
-            "default": 1
-        },
-        "width": {
-            "type": "integer",
-            "default": 100
-        },
-        "height": {
-            "type": "integer",
-            "default": 100
-        }
-    },
-    "methods": {
-        "setColor": {
-            "description": "Sets the background color.",
-            "parameters": [
-                {
-                    "name": "newColor",
-                    "type": "string",
-                    "description": "The new background color"
-                }
-            ],
-            "body": "this.color = newColor;"
-        },
-        "getColor": {
-            "returnType": "string",
-            "description": "Returns the background color.",
-            "body": "return this.color;"
-        }
-    },
+    "properties": {},
+    "methods": {},
     "events": {
         "onClick": {
             "description": "Called when the user clicks the Colored Box."
+        }
+    },
+    "dataBindings": {
+        "flowChartData": {
+            "feeds": [
+                {
+                    "id": "dimensions",
+                    "description": "Dimensions",
+                    "type": "dimension"
+                },
+                {
+                    "id": "measures",
+                    "description": "Measures",
+                    "type": "mainStructureMember"
+                }
+            ]
         }
     }
 }

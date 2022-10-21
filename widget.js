@@ -17,7 +17,6 @@
             height: 500px;
         }
     </style> 
-    <div id='diagram-container'></div>
     `;
     console.log("Loading Scripts")
 
@@ -49,19 +48,23 @@
 
 
 
-
+    let div = document.createElement("div");
 
     class JointJS extends HTMLElement {
         constructor() {
             super();
             // let shadowRoot = this.attachShadow({ mode: "open" });
+
             this.appendChild(template.content.cloneNode(true));
+            let container = this.appendChild(div.cloneNode(true));
             this._props = {};
             this.addEventListener("click", event => {
                 var event = new Event("onClick");
                 this.dispatchEvent(event);
             });
             console.log("Constructing JointJS")
+
+
 
             var namespace = joint.shapes;
 
@@ -71,7 +74,7 @@
             var graph = new joint.dia.Graph({}, { cellNamespace: namespace });
 
             var paper = new joint.dia.Paper({
-                el: this,
+                el: container,
                 model: graph,
                 width: 600,
                 height: 600,
@@ -114,6 +117,7 @@
             if ("opacity" in changedProperties) {
                 this.style["opacity"] = changedProperties["opacity"];
             }
+            console.log("flowChartData");
         }
     }
 
