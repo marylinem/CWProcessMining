@@ -53,8 +53,8 @@
     class JointJS extends HTMLElement {
         clearGraph() {
             this.graph.clear();
-            this.nodes = new Set < any > {};
-            this.relations = new Map < string, any > {};
+            this.nodes = new Set();
+            this.relations = new Map();
         }
 
         constructGraph() {
@@ -65,6 +65,7 @@
                 let rect = new joint.shapes.standard.Rectangle();
                 rect.position(px, py);
                 rect.resize(100, 40);
+                py += 50;
                 rect.attr({
                     body: {
                         fill: 'blue'
