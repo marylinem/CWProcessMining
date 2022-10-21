@@ -53,7 +53,7 @@
     class JointJS extends HTMLElement {
         clearGraph() {
             this.graph.clear();
-            this.nodes = new Set();
+            this.nodes = new Map();
             this.relations = new Map();
         }
 
@@ -62,7 +62,7 @@
             let px = 10;
             let py = 10;
             let nodeMap = new Map();
-            this.nodes.forEach(n => {
+            this.nodes.forEach((n, k) => {
                 console.log(n);
                 let rect = new joint.shapes.standard.Rectangle();
                 rect.position(px, py);
@@ -74,12 +74,12 @@
                         fill: 'blue'
                     },
                     label: {
-                        text: n.label,
+                        text: n,
                         fill: 'white'
                     }
                 });
                 rect.addTo(this.graph);
-                nodeMap.set(n.id, rect);
+                nodeMap.set(k, rect);
             })
 
             this.relations.forEach((r, v) => {
@@ -122,10 +122,7 @@
                     cur = d0id;
                     prevData = d1;
                 }
-                this.nodes.add({
-                    id: d1.id,
-                    label: d1.label,
-                }) // Process
+                this.nodes.set(d1.id, d1.label);
             });
             this.constructGraph();
         }
