@@ -207,7 +207,8 @@
 
             let data = Array.from(this.flowChartData.data);
             data.sort((a, b) => strComp(a.dimensions_1.id, b.dimensions_1.id) || strComp(a.dimensions_2.id, b.dimensions_2.id));
-            data.sort((a, b) => a.id < b.id ? 1 : a.id > b.id ? -1 : 0);
+            data.sort((a, b) => strComp(a.dimensions_1.id, b.dimensions_1.id));
+
             console.log(data);
             let curRelationId = null;
             let prevProcessData = null;
