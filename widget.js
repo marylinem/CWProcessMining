@@ -206,23 +206,24 @@
 
             let data = Array.from(this.flowChartData.data);
             data.sort((a, b) => strComp(a.dimensions_1.id, b.dimensions_1.id) || strComp(a.dimensions_2.id, b.dimensions_2.id))
-            let cur = null;
-            let prevData = null;
+            let curRelationId = null;
+            let prevProcessData = null;
             data.forEach(row => {
-                let d0id = row.dimensions_0.id;
-                let d1 = row.dimensions_1;
-                if (cur == d0id) {
-                    let key = prevData.id + "_" + d1.id;
+                let process = row.dimensions_0;
+                let relation = row.dimensions_1;
+                let filter = row.dimensions_3 || undefined;
+                if (curRelationId == relation.id) {
+                    let key = prevProcessData.id + "_" + process.id;
                     let val = 0;
                     if (this.relations.get(key)) val = this.relations.get(key).val;
-                    this.relations.set(key, { val: val + 1, n0: prevData.id, n1: d1.id });
-                    prevData = d1;
+                    this.relations.set(key, { val: val + 1, n0: prevProcessData.id, n1: process.id });
+                    prevProcessData = process;
                 }
                 else {
-                    cur = d0id;
-                    prevData = d1;
+                    curRelationId = relation.id;
+                    prevProcessData = process;
                 }
-                this.nodes.set(d1.id, d1.label);
+                this.nodes.set(process.id, process.label);
             });
             this.constructGraph();
         }
