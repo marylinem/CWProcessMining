@@ -207,6 +207,7 @@
 
             let data = Array.from(this.flowChartData.data);
             data.sort((a, b) => strComp(a.dimensions_1.id, b.dimensions_1.id) || strComp(a.dimensions_2.id, b.dimensions_2.id))
+            console.log(data);
             let curRelationId = null;
             let prevProcessData = null;
             data.forEach(row => {
@@ -226,6 +227,7 @@
                 }
                 this.nodes.set(process.id, process.label);
             });
+            console.log(this.relations);
             this.constructGraph();
         }
 
