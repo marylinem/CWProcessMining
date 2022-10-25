@@ -172,6 +172,7 @@
             })
 
             this.relations.forEach((r, v) => {
+                console.log({ r, v });
                 var link = new joint.shapes.standard.Link();
                 link.source(nodeMap.get(r.n0));
                 link.target(nodeMap.get(r.n1));
