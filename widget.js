@@ -44,13 +44,75 @@
     }
 
 
+    function getOutgoingEdges(n, edges) {
+        const outgoing = [];
+        for (const [key, e] of edges.entries()) {
+            if (e.n0 == n) outgoing.push({ key: key, n0: e.n0, n1: e.n1 });
+        }
+        return outgoing;
+    }
 
+    function hasIncomingEdges(n, edges) {
+        const incoming = [];
+        for (const [key, e] of edges.entries()) {
+            if (e.n1 == n) return true;
+        }
+        return false;
+    }
 
+    function strComp(strA, strB) {
+        return strA < strB ? 1 : strB > strA ? -1 : 0;
+    }
 
 
     let div = document.createElement("div");
 
     class JointJS extends HTMLElement {
+
+
+
+        /* 
+        * Do a topological sort on nodes map
+        * nodes map<string, string>: key: <id>, value: <label>
+        * edges map<string, object>: key: <>, value: {n0, n1, value}; n0 - node with outgoing edge e
+        * 
+        */
+        topologicalSort(nodes, edges) {
+            const newNodes = [];
+            const beginningNodes = [];
+            // Get all beginning nodes
+            for (const [n, label] of nodes.entries()) {
+                let isBeginning = true;
+                for (const e of edges.values()) {
+                    if (e.n1 == n) {
+                        beginningNodes = false;
+                        break;
+                    }
+                }
+                if (isBeginning) beginningNodes.push({ id: n, label: label });
+            }
+            const edgeCopy = new Map(edges);
+            // Topological Sorting with Kahn's algorithm
+            while (beginningNodes.length > 0) {
+                const n = beginningNodes.pop();
+                newNodes.push({ id: n.id, label: n.label })
+                const outgoing = getOutgoingEdges(n.id, edgeCopy);
+                for (const e of outgoing) {
+                    const m = e.n1;
+                    edgeCopy.delete(e.key);
+                    if (!hasIncomingEdges(m, edgeCopy)) beginningNodes.push({ id: m, label: nodes.get(m) });
+                }
+            }
+            if (edgeCopy.size > 0) { // no topological sorting possible, sort by id
+                newNodes = [];
+                for (const [n, label] of nodes) {
+                    newNodes.push({ id: n, label: label });
+                }
+                newNodes.sort((a, b) => strComp(a.id, b.id));
+            }
+            return newNodes;
+        }
+
         clearGraph() {
             this.graph.clear();
             this.nodes = new Map();
@@ -62,6 +124,33 @@
             let px = 10;
             let py = 10;
             let nodeMap = new Map();
+            /*
+                check relations and add nodes to grid according to them
+                1.creare 2d grid
+                2. new nodes on next y level (1 level beneath parent node)
+                3. nodes with same parent spaced on x-axis
+
+                todo process mining to get relations from table
+                alternative: topological sort see wikipedia
+
+                use timestamp to establish relations between nodes
+
+
+                dimension 0: process
+                dimension 1: events
+                dimension 2: timestamp
+                dimension 3: filter
+                measure:    todo
+                conformance checking
+                performance analysis
+
+                process mining library js: pm4js
+
+                currently d0: event
+                d1: process
+
+                look into getters/setters to auto genrate builder and styling
+            */
             this.nodes.forEach((n, k) => {
                 console.log(n);
                 let rect = new joint.shapes.standard.Rectangle();
@@ -97,18 +186,29 @@
             })
         }
 
-        changeModel() {
+        /*
+        * Creates model by traversing thorugh a sorted table with atleast 3 dimensions provided per row
+        * Dimension 0: process
+        * Dimension 1: relations
+        * Dimension 2: timestamp
+        * optional Dimension 3: filter
+        * 
+        */
+        createModel() {
+            // check if provided data has at least one row and three dimensions
             if (!this.flowChartData.data || !this.flowChartData.data[0]
                 || !this.flowChartData.data[0].dimensions_0
-                || !this.flowChartData.data[0].dimensions_1) return;
+                || !this.flowChartData.data[0].dimensions_1
+                || !this.flowChartData.data[0].dimensions_2) return;
             this.clearGraph();
-            console.log("Constructing graph")
+            console.log("Creating model")
             console.log(this.flowChartData)
-            let data = this.flowChartData.data;
+
+            let data = Array.from(this.flowChartData.data);
+            data.sort((a, b) => strComp(a.dimensions_1.id, b.dimensions_1.id) || strComp(a.dimensions_2.id, b.dimensions_2.id))
             let cur = null;
             let prevData = null;
             data.forEach(row => {
-                console.log(row);
                 let d0id = row.dimensions_0.id;
                 let d1 = row.dimensions_1;
                 if (cur == d0id) {
@@ -169,7 +269,7 @@
             if ("opacity" in changedProperties) {
                 this.style["opacity"] = changedProperties["opacity"];
             }
-            this.changeModel();
+            this.createModel();
         }
     }
 
