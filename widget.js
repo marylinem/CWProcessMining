@@ -61,7 +61,7 @@
     }
 
     function strComp(strA, strB) {
-        return strA < strB ? 1 : strB > strA ? -1 : 0;
+        return strA < strB ? 1 : strA > strB ? -1 : 0;
     }
 
 
@@ -207,9 +207,6 @@
 
             let data = Array.from(this.flowChartData.data);
             data.sort((a, b) => strComp(a.dimensions_1.id, b.dimensions_1.id) || strComp(a.dimensions_2.id, b.dimensions_2.id));
-            data.sort((a, b) => strComp(a.dimensions_1.id, b.dimensions_1.id));
-
-            console.log(data);
             let curRelationId = null;
             let prevProcessData = null;
             data.forEach(row => {
