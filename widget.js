@@ -94,7 +94,7 @@
                 let isBeginning = true;
                 for (const e of edges.values()) {
                     if (e.n1 == n) {
-                        beginningNodes = false;
+                        isBeginning = false;
                         break;
                     }
                 }
