@@ -256,7 +256,7 @@
                 gridSize: 1,
                 cellViewNamespace: namespace
             });
-
+            this.createModel();
         }
         onCustomWidgetBeforeUpdate(changedProperties) {
             this._props = { ...this._props, ...changedProperties };
