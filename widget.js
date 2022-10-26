@@ -60,6 +60,15 @@
         return false;
     }
 
+    function isIndependent(prevNodes, node, edges) {
+        for (const [key, e] of edges.entries()) {
+            for (const n of prevNodes) {
+                if (e.n1 == node && e.n0 == n) return false;
+            }
+        }
+        return true;
+    }
+
     function strComp(strA, strB) {
         return strA < strB ? 1 : strA > strB ? -1 : 0;
     }
@@ -104,6 +113,7 @@
                 }
             }
             if (edgeCopy.size > 0) { // no topological sorting possible, sort by id
+                console.log("No topological sort possible")
                 newNodes = [];
                 for (const [n, label] of nodes) {
                     newNodes.push({ id: n, label: label });
@@ -124,51 +134,36 @@
             let px = 10;
             let py = 10;
             let nodeMap = new Map();
-            /*
-                check relations and add nodes to grid according to them
-                1.creare 2d grid
-                2. new nodes on next y level (1 level beneath parent node)
-                3. nodes with same parent spaced on x-axis
 
-                todo process mining to get relations from table
-                alternative: topological sort see wikipedia
+            let sortedNodes = this.topologicalSort(this.nodes, this.relations)
+            let prevNodes = [];
 
-                use timestamp to establish relations between nodes
-
-
-                dimension 0: process
-                dimension 1: events
-                dimension 2: timestamp
-                dimension 3: filter
-                measure:    todo
-                conformance checking
-                performance analysis
-
-                process mining library js: pm4js
-
-                currently d0: event
-                d1: process
-
-                look into getters/setters to auto genrate builder and styling
-            */
-            this.nodes.forEach((n, k) => {
-                console.log(n);
+            sortedNodes.forEach(n => {
                 let rect = new joint.shapes.standard.Rectangle();
+
+                if (isIndependent(prevNodes, n.id, this.relations)) {
+                    px += 150;
+                }
+                else {
+                    py += 50;
+                    px = 10;
+                    prevNodes = [];
+                }
+                prevNodes.push(n.id);
                 rect.position(px, py);
                 rect.resize(130, 40);
-                py += 40;
-                px += 40;
+
                 rect.attr({
                     body: {
                         fill: 'blue'
                     },
                     label: {
-                        text: n,
+                        text: n.label,
                         fill: 'white'
                     }
                 });
                 rect.addTo(this.graph);
-                nodeMap.set(k, rect);
+                nodeMap.set(n.id, rect);
             })
 
             this.relations.forEach((r, v) => {
@@ -203,10 +198,11 @@
                 || !this.flowChartData.data[0].dimensions_2) return;
             this.clearGraph();
             console.log("Creating model")
-            console.log(this.flowChartData)
+
 
             let data = Array.from(this.flowChartData.data);
             data.sort((a, b) => strComp(a.dimensions_1.id, b.dimensions_1.id) || strComp(b.dimensions_2.id, a.dimensions_2.id));
+            console.log(data)
             let curRelationId = null;
             let prevProcessData = null;
             data.forEach(row => {
