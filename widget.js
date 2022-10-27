@@ -91,14 +91,17 @@
                             text: "" + r.val + (r.timeDif > 0 ? "\nAvgTime: " + Math.round(r.timeDif / r.val * 10) / 10 : ""),
                             fill: "#346187",
                         },
-                        strokeLinejoin: 'round',
-                        strokeLinecap: 'round',
-                        '.connection': {
-                            stroke: 'rgb(222, 222, 222)',
-                            strokeWidth: '2px'
-                        }
+
                     }
                 });
+                link.attr({
+                    strokeLinejoin: 'round',
+                    strokeLinecap: 'round',
+                    '.connection': {
+                        stroke: 'rgb(222, 222, 222)',
+                        strokeWidth: '2px'
+                    }
+                })
                 link.addTo(this.graph);
             })
             this.graph.resetCells(this.graph.getCells());
