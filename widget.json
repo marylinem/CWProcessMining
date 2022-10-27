@@ -18,7 +18,7 @@
         },
         {
             "kind": "builder",
-            "tag": "com-sample-box-builder",
+            "tag": "com-demo-jointjs-builder",
             "url": "https://gaalve.github.io/SAC_Process_Mining/widget_builder.js",
             "integrity": "",
             "ignoreIntegrity": true
