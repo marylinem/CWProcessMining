@@ -250,6 +250,10 @@
                 cellViewNamespace: namespace
             });
 
+            this.paper.options.defaultConnector = {
+                name: 'smooth'
+            }
+
         }
         onCustomWidgetBeforeUpdate(changedProperties) {
             this._props = { ...this._props, ...changedProperties };
