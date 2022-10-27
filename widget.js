@@ -209,12 +209,11 @@
             this._props = { ...this._props, ...changedProperties };
         }
         onCustomWidgetAfterUpdate(changedProperties) {
-            if ("color" in changedProperties) {
-                this.style["background-color"] = changedProperties["color"];
+            if ("openDialog" in changedProperties) {
+                const db = this.dataBindings.getDataBinding('flowChartData');
+                db.openSelectModelDialog();
             }
-            if ("opacity" in changedProperties) {
-                this.style["opacity"] = changedProperties["opacity"];
-            }
+
             this.createModel();
         }
     }

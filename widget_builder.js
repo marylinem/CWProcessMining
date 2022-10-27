@@ -25,9 +25,9 @@
             this._shadowRoot = this.attachShadow({ mode: "open" });
             this._shadowRoot.appendChild(template.content.cloneNode(true));
 
-            const db = this.dataBindings.getDataBinding("flowChartData");
+            // const db = this.dataBindings.getDataBinding("flowChartData");
             this._shadowRoot.getElementById("selModel").addEventListener('submit', (ev) => {
-                db.openSelectModelDialog();
+                // db.openSelectModelDialog();
                 this._submit(ev);
             });
         }
@@ -36,6 +36,7 @@
             this.dispatchEvent(new CustomEvent("propertiesChanged", {
                 detail: {
                     properties: {
+                        openDialog: true
                     }
                 }
             }));
