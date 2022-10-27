@@ -68,11 +68,12 @@
 
                 rect.attr({
                     body: {
-                        class: "sapLumiraStoryLayoutUnifiedComponentSectionPanel sapLumiraStoryLayoutCommonSectionPanel selectedChild",
+                        strokeWidth: "1px",
+                        stroke: "rgb(222, 222, 222)"
                     },
                     label: {
                         text: n,
-                        fill: 'black'
+                        fill: '#485c6b'
                     }
                 });
 
