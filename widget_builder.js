@@ -3,10 +3,13 @@
     let template = document.createElement("template");
     template.innerHTML = `
     <button id="selModel" type="button">Select Model</button>
+    <br/>
     <label for="selDim0">Select Process</label>
     <select id="selDim0"/>
+    <br/>
     <label for="selDim1">Select Relation</label>
     <select id="selDim1"/>
+    <br/>
     <label for="selDim2">Select Timestamp</label>
     <select id="selDim2"/>
     <style>
