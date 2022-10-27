@@ -93,8 +93,11 @@
                         },
                         strokeLinejoin: 'round',
                         strokeLinecap: 'round',
-                        strokeWidth: "2px",
-                        stroke: "rgb(222, 222, 222)",
+                        body: {
+                            strokeWidth: "2px",
+                            stroke: "rgb(222, 222, 222)",
+                        }
+
                     }
                 });
                 link.addTo(this.graph);
