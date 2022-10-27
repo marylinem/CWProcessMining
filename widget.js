@@ -86,7 +86,7 @@
                 link.appendLabel({
                     attrs: {
                         text: {
-                            text: "" + r.val + "\nAvgTime: " + round(r.timeDif / r.val * 10) / 10
+                            text: "" + r.val + "\nAvgTime: " + Math.round(r.timeDif / r.val * 10) / 10
                         },
                         strokeLinejoin: 'round',
                         strokeLinecap: 'round',
