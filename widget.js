@@ -170,7 +170,8 @@
                     attrs: {
                         text: {
                             text: "" + r.val
-                        }
+                        },
+                        strokeLinejoin: 'round',
                     }
                 });
                 link.addTo(this.graph);
