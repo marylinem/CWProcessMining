@@ -132,10 +132,11 @@
             console.log(data)
             let curRelationId = null;
             let prevProcessData = null;
+            let process = null;
             this.nodes.set("_start", "Start");
             this.nodes.set("_end", "End");
             data.forEach(row => {
-                let process = row.dimensions_0;
+                process = row.dimensions_0;
                 let relation = row.dimensions_1;
                 if (curRelationId == relation.id) {
                     this.traverseEdge(prevProcessData.id, process.id);
@@ -149,6 +150,7 @@
                 }
                 this.nodes.set(process.id, process.label);
             });
+            this.traverseEdge(process.id, "_end");
             this.constructGraph();
         }
 
