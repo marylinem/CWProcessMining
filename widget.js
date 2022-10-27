@@ -18,13 +18,11 @@
         }
     </style> 
     `;
-    console.log("Loading Scripts")
 
     function loadScript(src, callback = null) {
         let scripts = window.sessionStorage.getItem("customScripts") || []
         let stored = scripts.find((e) => e.scriptSrc == src);
         if (!stored) {
-            console.log("script not stored, creating")
             let script = document.createElement("script")
             script.type = "text/javascript";
             script.src = src;
@@ -37,9 +35,6 @@
                 "src": src
             }
             scripts.push(obj);
-        }
-        else {
-            console.log("script stored")
         }
     }
 
@@ -222,14 +217,11 @@
                 }
                 this.nodes.set(process.id, process.label);
             });
-            console.log(this.relations);
             this.constructGraph();
         }
 
         constructor() {
             super();
-            // let shadowRoot = this.attachShadow({ mode: "open" });
-
             this.appendChild(template.content.cloneNode(true));
             let container = this.appendChild(div.cloneNode(true));
             this._props = {};
@@ -237,14 +229,8 @@
                 var event = new Event("onClick");
                 this.dispatchEvent(event);
             });
-            console.log("Constructing JointJS")
-
-
 
             var namespace = joint.shapes;
-
-
-            console.log(this)
 
             this.graph = new joint.dia.Graph({}, { cellNamespace: namespace });
 
@@ -272,17 +258,13 @@
         }
     }
 
-    // loadScript("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js");
     loadScript("https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.js");
     loadScript("https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.1/backbone.js");
 
 
     let scriptCB = function () {
-        console.log("Loaded JointJS")
         customElements.define("com-demo-jointjs", JointJS);
     }
     loadScript("https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.5.5/joint.js", scriptCB);
-
-    console.log("Loading JointJS")
 
 })();
