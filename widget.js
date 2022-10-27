@@ -97,7 +97,7 @@
                 link.attr({
                     strokeLinejoin: 'round',
                     strokeLinecap: 'round',
-                    '.connection': {
+                    line: {
                         stroke: 'rgb(222, 222, 222)',
                         strokeWidth: '2px'
                     }
