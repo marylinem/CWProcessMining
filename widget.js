@@ -64,7 +64,7 @@
 
             this.nodes.forEach((n, k) => {
                 let rect = new joint.shapes.standard.Rectangle();
-                rect.resize(130, 40);
+                rect.resize(140, 40);
 
                 rect.attr({
                     body: {
@@ -96,10 +96,17 @@
             })
             this.graph.resetCells(this.graph.getCells());
             joint.layout.DirectedGraph.layout(this.graph, {
-                nodeSep: 50,
-                edgeSep: 80,
+                nodeSep: 75,
+                edgeSep: 100,
                 rankDir: "TB"
             });
+        }
+
+        traverseEdge(n0, n1) {
+            let key = n0 + "_" + n1;
+            let val = 0;
+            if (this.relations.get(key)) val = this.relations.get(key).val;
+            this.relations.set(key, { val: val + 1, n0: n0, n1: n1 });
         }
 
         /*
@@ -125,17 +132,18 @@
             console.log(data)
             let curRelationId = null;
             let prevProcessData = null;
+            this.nodes.set("_start", "Start");
+            this.nodes.set("_end", "End");
             data.forEach(row => {
                 let process = row.dimensions_0;
                 let relation = row.dimensions_1;
                 if (curRelationId == relation.id) {
-                    let key = prevProcessData.id + "_" + process.id;
-                    let val = 0;
-                    if (this.relations.get(key)) val = this.relations.get(key).val;
-                    this.relations.set(key, { val: val + 1, n0: prevProcessData.id, n1: process.id });
+                    this.traverseEdge(prevProcessData.id, process.id);
                     prevProcessData = process;
                 }
                 else {
+                    if (curRelationId) this.traverseEdge(prevProcessData.id, "_end");
+                    this.traverseEdge("_start", process.id);
                     curRelationId = relation.id;
                     prevProcessData = process;
                 }
