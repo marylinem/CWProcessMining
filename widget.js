@@ -98,8 +98,8 @@
                     strokeLinejoin: 'round',
                     strokeLinecap: 'round',
                     line: {
-                        stroke: 'rgb(222, 222, 222)',
-                        strokeWidth: '2px'
+                        stroke: '#346187',
+                        strokeWidth: '1px'
                     }
                 })
                 link.addTo(this.graph);
