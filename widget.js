@@ -67,8 +67,9 @@
                 rect.resize(140, 40);
 
                 rect.attr({
-                    class: "sapLumiraStoryLayoutUnifiedComponentSectionPanel sapLumiraStoryLayoutCommonSectionPanel selectedChild",
-
+                    body: {
+                        class: "sapLumiraStoryLayoutUnifiedComponentSectionPanel sapLumiraStoryLayoutCommonSectionPanel selectedChild",
+                    },
                     label: {
                         text: n,
                         fill: 'black'
