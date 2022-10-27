@@ -88,10 +88,13 @@
                 link.appendLabel({
                     attrs: {
                         text: {
-                            text: "" + r.val + (r.timeDif > 0 ? "\nAvgTime: " + Math.round(r.timeDif / r.val * 10) / 10 : "")
+                            text: "" + r.val + (r.timeDif > 0 ? "\nAvgTime: " + Math.round(r.timeDif / r.val * 10) / 10 : ""),
+                            fill: "#346187",
                         },
                         strokeLinejoin: 'round',
                         strokeLinecap: 'round',
+                        strokeWidth: "2px",
+                        stroke: "rgb(222, 222, 222)",
                     }
                 });
                 link.addTo(this.graph);
