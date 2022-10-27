@@ -175,6 +175,12 @@
                 });
                 link.addTo(this.graph);
             })
+            this.graph.resetCells(this.graph.getCells());
+            joint.layout.DirectedGraph.layout(this.graph, {
+                nodeSep: 50,
+                edgeSep: 80,
+                rankDir: "TB"
+            });
         }
 
         /*
