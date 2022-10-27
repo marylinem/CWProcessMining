@@ -69,7 +69,9 @@
                 rect.attr({
                     body: {
                         strokeWidth: "1px",
-                        stroke: "rgb(222, 222, 222)"
+                        stroke: "rgb(222, 222, 222)",
+                        rx: "1px",
+                        ry: "1px",
                     },
                     label: {
                         text: n,
