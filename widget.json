@@ -1,6 +1,6 @@
 {
     "id": "com.demo.jointjs",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "name": "Demo JointJS",
     "description": "A JointJS Demo",
     "newInstancePrefix": "JointJS",
@@ -13,6 +13,13 @@
             "kind": "main",
             "tag": "com-demo-jointjs",
             "url": "https://gaalve.github.io/SAC_Process_Mining/widget.js",
+            "integrity": "",
+            "ignoreIntegrity": true
+        },
+        {
+            "kind": "builder",
+            "tag": "com-sample-box-builder",
+            "url": "https://gaalve.github.io/SAC_Process_Mining/widget_builder.js",
             "integrity": "",
             "ignoreIntegrity": true
         }

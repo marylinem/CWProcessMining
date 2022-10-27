@@ -1,14 +1,14 @@
 (function () {
+
     let template = document.createElement("template");
     template.innerHTML = `
-    <form id="form">
-    <fieldset>
-    <legend>JointJS Properties</legend>
-    <table>
-    </table>
-    <input type="submit" style="display:none;">
-    </fieldset>
-    </form>
+    <button id="selModel" type="button">Select Model</button>
+    <label for="selDim0">Select Process</label>
+    <select id="selDim0"/>
+    <label for="selDim1">Select Relation</label>
+    <select id="selDim1"/>
+    <label for="selDim2">Select Timestamp</label>
+    <select id="selDim2"/>
     <style>
     :host {
     display: block;
@@ -22,8 +22,11 @@
             this._shadowRoot = this.attachShadow({ mode: "open" });
             this._shadowRoot.appendChild(template.content.cloneNode(true));
 
-            this._shadowRoot.getElementById("form").addEventListener("submit",
-                this._submit.bind(this));
+            const db = this.dataBindings.getDataBinding("flowChartData");
+            this._shadowRoot.getElementById("selModel").addEventListener('submit', (ev) => {
+                db.openSelectModelDialog();
+                this._submit(ev);
+            })
         }
         _submit(e) {
             e.preventDefault();
