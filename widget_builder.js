@@ -22,11 +22,11 @@
             this._shadowRoot = this.attachShadow({ mode: "open" });
             this._shadowRoot.appendChild(template.content.cloneNode(true));
 
-            const db = this.dataBindings.getDataBinding("flowChartData");
-            this._shadowRoot.getElementById("selModel").addEventListener('submit', (ev) => {
-                db.openSelectModelDialog();
-                this._submit(ev);
-            })
+            // const db = this.dataBindings.getDataBinding("flowChartData");
+            // this._shadowRoot.getElementById("selModel").addEventListener('submit', (ev) => {
+            //     db.openSelectModelDialog();
+            //     this._submit(ev);
+            // });
         }
         _submit(e) {
             e.preventDefault();
