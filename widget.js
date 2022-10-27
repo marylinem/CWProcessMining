@@ -86,7 +86,7 @@
                 link.appendLabel({
                     attrs: {
                         text: {
-                            text: "" + r.val
+                            text: "" + r.val + "\nAvgTime: " + round(r.timeDif / r.val * 10) / 10
                         },
                         strokeLinejoin: 'round',
                         strokeLinecap: 'round',
@@ -102,11 +102,20 @@
             });
         }
 
-        traverseEdge(n0, n1) {
+        traverseEdge(n0, n1, timeDif) {
             let key = n0 + "_" + n1;
             let val = 0;
-            if (this.relations.get(key)) val = this.relations.get(key).val;
-            this.relations.set(key, { val: val + 1, n0: n0, n1: n1 });
+            let td = 0;
+            let rel = this.relations.get(key);
+            if (rel) {
+                val = rel.val;
+                td = rel.timeDif;
+            }
+            this.relations.set(key, { val: val + 1, n0: n0, n1: n1, timeDif: td + timeDif });
+        }
+
+        dateDif(d1, d2) {
+            return (d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24);
         }
 
         /*
@@ -132,25 +141,27 @@
             console.log(data)
             let curRelationId = null;
             let prevProcessData = null;
+            let prevDate = null;
             let process = null;
             this.nodes.set("_start", "Start");
             this.nodes.set("_end", "End");
             data.forEach(row => {
                 process = row.dimensions_0;
                 let relation = row.dimensions_1;
+                let date = new Date(row.dimensions_2.id);
                 if (curRelationId == relation.id) {
-                    this.traverseEdge(prevProcessData.id, process.id);
-                    prevProcessData = process;
+                    this.traverseEdge(prevProcessData.id, process.id, this.dateDif(prevDate, date));
                 }
                 else {
-                    if (curRelationId) this.traverseEdge(prevProcessData.id, "_end");
-                    this.traverseEdge("_start", process.id);
+                    if (curRelationId) this.traverseEdge(prevProcessData.id, "_end", 0);
+                    this.traverseEdge("_start", process.id, 0);
                     curRelationId = relation.id;
-                    prevProcessData = process;
                 }
+                prevProcessData = process;
+                prevDate = date;
                 this.nodes.set(process.id, process.label);
             });
-            this.traverseEdge(process.id, "_end");
+            this.traverseEdge(process.id, "_end", 0);
             this.constructGraph();
         }
 
