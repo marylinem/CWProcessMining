@@ -67,14 +67,13 @@
                 rect.resize(140, 40);
 
                 rect.attr({
-                    body: {
-                        fill: 'blue'
-                    },
                     label: {
                         text: n,
-                        fill: 'white'
+                        fill: 'black'
                     }
                 });
+                rect.class = "sapLumiraStoryLayoutUnifiedComponentSectionPanel sapLumiraStoryLayoutCommonSectionPanel selectedChild"
+
                 rect.addTo(this.graph);
                 nodeMap.set(k, rect);
             })
