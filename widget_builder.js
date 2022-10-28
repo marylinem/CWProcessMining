@@ -63,8 +63,9 @@
 
         setOptions(dimensions, dim) {
             dim.options.length = dimensions.length + 1;
+            const val = dim.value;
             dimensions.forEach((d, i) => {
-                dim.options[i + 1] = new Option(d.description, d.id);
+                dim.options[i + 1] = new Option(d.description, d.id, undefined, d.id == val);
             });
         }
 
@@ -92,7 +93,7 @@
             const dim2 = this._shadowRoot.getElementById("selDim2");
             const d0v = dim0.value;
             const d1v = dim1.value;
-            const d2v = dim1.value;
+            const d2v = dim2.value;
             if (this.dataBindings && d0v && d1v && d2v) {
                 const db = this.dataBindings.getDataBinding('flowChartData');
                 if (db) {
