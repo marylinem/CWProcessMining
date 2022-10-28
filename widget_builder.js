@@ -92,6 +92,8 @@
                         this.setOptions(dimensions, dim1);
                         this.setOptions(dimensions, dim2);
                         this.setOptions(measures, meas);
+
+                        await ds.expandNode(dim2);
                     }
                 }
             }
