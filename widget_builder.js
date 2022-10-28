@@ -68,7 +68,7 @@
                 if (db) {
                     const ds = await db.getDataSource();
                     if (ds) {
-                        const dimensions = ds.getDimensions();
+                        const dimensions = await ds.getDimensions();
                         const dim0 = this._shadowRoot.getElementById("selDim0");
                         const dim1 = this._shadowRoot.getElementById("selDim1");
                         const dim2 = this._shadowRoot.getElementById("selDim2");
