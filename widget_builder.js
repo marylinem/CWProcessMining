@@ -19,6 +19,8 @@
         <option>--NONE--</option>
     </select>
     <br/>
+    <button id="createModel" type="button">Create Model</button>
+    <br/>
     <style>
     :host {
     display: block;
@@ -43,6 +45,10 @@
                 }
                 this._submit(ev);
             };
+            this._shadowRoot.getElementById("createModel").onclick = (ev) => {
+                this.createModel();
+                this._submit(ev);
+            };
         }
         _submit(e) {
             e.preventDefault();
@@ -64,7 +70,7 @@
 
         async onCustomWidgetAfterUpdate(changedProperties) {
             if (this.dataBindings) {
-                const db = await this.dataBindings.getDataBinding('flowChartData');
+                const db = this.dataBindings.getDataBinding('flowChartData');
                 if (db) {
                     const ds = await db.getDataSource();
                     if (ds) {
@@ -76,6 +82,27 @@
                         this.setOptions(dimensions, dim1);
                         this.setOptions(dimensions, dim2);
                     }
+                }
+            }
+        }
+
+        createModel() {
+            const dim0 = this._shadowRoot.getElementById("selDim0");
+            const dim1 = this._shadowRoot.getElementById("selDim1");
+            const dim2 = this._shadowRoot.getElementById("selDim2");
+            const d0v = dim0.value;
+            const d1v = dim1.value;
+            const d2v = dim1.value;
+            if (this.dataBindings && d0v && d1v && d2v) {
+                const db = this.dataBindings.getDataBinding('flowChartData');
+                if (db) {
+                    const oldDims = db.getDimensions("dimensions");
+                    oldDims.forEach((id) => {
+                        db.removeDimension(id);
+                    });
+                    db.addDimensionToFeed("dimensions", d0v, 0);
+                    db.addDimensionToFeed("dimensions", d1v, 1);
+                    db.addDimensionToFeed("dimensions", d2v, 2);
                 }
             }
         }
