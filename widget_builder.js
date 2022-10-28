@@ -50,8 +50,8 @@
                 }
                 this._submit(ev);
             };
-            this._shadowRoot.getElementById("createModel").onclick = (ev) => {
-                this.createModel();
+            this._shadowRoot.getElementById("createModel").onclick = async (ev) => {
+                await this.createModel();
                 this._submit(ev);
             };
         }
@@ -97,7 +97,7 @@
             }
         }
 
-        createModel() {
+        async createModel() {
             const dim0 = this._shadowRoot.getElementById("selDim0");
             const dim1 = this._shadowRoot.getElementById("selDim1");
             const dim2 = this._shadowRoot.getElementById("selDim2");
@@ -110,17 +110,17 @@
                 const db = this.dataBindings.getDataBinding('flowChartData');
                 if (db) {
                     const oldDims = db.getDimensions("dimensions");
-                    oldDims.forEach((id) => {
-                        db.removeDimension(id);
+                    oldDims.forEach(async (id) => {
+                        await db.removeDimension(id);
                     });
                     const oldMeas = db.getMembers("measures");
-                    oldMeas.forEach((id) => {
-                        db.removeMember(id);
+                    oldMeas.forEach(async (id) => {
+                        await db.removeMember(id);
                     });
-                    db.addMemberToFeed("measures", mv, 0);
-                    db.addDimensionToFeed("dimensions", d0v, 0);
-                    db.addDimensionToFeed("dimensions", d1v, 1);
-                    db.addDimensionToFeed("dimensions", d2v, 2);
+                    await db.addMemberToFeed("measures", mv);
+                    await db.addDimensionToFeed("dimensions", d0v);
+                    await db.addDimensionToFeed("dimensions", d1v);
+                    await db.addDimensionToFeed("dimensions", d2v);
                 }
             }
         }
