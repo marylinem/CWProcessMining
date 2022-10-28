@@ -4,6 +4,11 @@
     template.innerHTML = `
     <button id="selModel" type="button">Select Model</button>
     <br/>
+    <label for="selMeasure">Select Measure</label>
+    <select id="selMeasure">
+        <option>--NONE--</option>
+    </select>
+    <br/>
     <label for="selDim0">Select Process</label>
     <select id="selDim0">
         <option>--NONE--</option>
@@ -72,16 +77,21 @@
         async onCustomWidgetAfterUpdate(changedProperties) {
             if (this.dataBindings) {
                 const db = this.dataBindings.getDataBinding('flowChartData');
+                console.log(db.getDimensions("dimensions"));
+                console.log(db.getMembers("measures"));
                 if (db) {
                     const ds = await db.getDataSource();
                     if (ds) {
                         const dimensions = await ds.getDimensions();
+                        const measures = await ds.getMeasures();
                         const dim0 = this._shadowRoot.getElementById("selDim0");
                         const dim1 = this._shadowRoot.getElementById("selDim1");
                         const dim2 = this._shadowRoot.getElementById("selDim2");
+                        const meas = this._shadowRoot.getElementById("selMeasure");
                         this.setOptions(dimensions, dim0);
                         this.setOptions(dimensions, dim1);
                         this.setOptions(dimensions, dim2);
+                        this.setOptions(measures, meas);
                     }
                 }
             }
@@ -91,16 +101,23 @@
             const dim0 = this._shadowRoot.getElementById("selDim0");
             const dim1 = this._shadowRoot.getElementById("selDim1");
             const dim2 = this._shadowRoot.getElementById("selDim2");
+            const meas = this._shadowRoot.getElementById("selMeasures");
             const d0v = dim0.value;
             const d1v = dim1.value;
             const d2v = dim2.value;
-            if (this.dataBindings && d0v && d1v && d2v) {
+            const mv = meas.value;
+            if (this.dataBindings && d0v && d1v && d2v && mv) {
                 const db = this.dataBindings.getDataBinding('flowChartData');
                 if (db) {
                     const oldDims = db.getDimensions("dimensions");
                     oldDims.forEach((id) => {
                         db.removeDimension(id);
                     });
+                    const oldMeas = db.getMembers("measures");
+                    oldMeas.forEach((id) => {
+                        db.removeMember(id);
+                    });
+                    db.addMemberToFeed("measures", mv, 0);
                     db.addDimensionToFeed("dimensions", d0v, 0);
                     db.addDimensionToFeed("dimensions", d1v, 1);
                     db.addDimensionToFeed("dimensions", d2v, 2);
