@@ -62,11 +62,11 @@
             }
         }
 
-        onCustomWidgetAfterUpdate(changedProperties) {
+        async onCustomWidgetAfterUpdate(changedProperties) {
             if (this.dataBindings) {
-                const db = this.dataBindings.getDataBinding('flowChartData');
+                const db = await this.dataBindings.getDataBinding('flowChartData');
                 if (db) {
-                    const ds = db.getDataSource();
+                    const ds = await db.getDataSource();
                     if (ds) {
                         const dimensions = ds.getDimensions();
                         const dim0 = this._shadowRoot.getElementById("selDim0");
