@@ -101,7 +101,7 @@
             const dim0 = this._shadowRoot.getElementById("selDim0");
             const dim1 = this._shadowRoot.getElementById("selDim1");
             const dim2 = this._shadowRoot.getElementById("selDim2");
-            const meas = this._shadowRoot.getElementById("selMeasures");
+            const meas = this._shadowRoot.getElementById("selMeasure");
             const d0v = dim0.value;
             const d1v = dim1.value;
             const d2v = dim2.value;
