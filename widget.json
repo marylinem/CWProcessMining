@@ -8,18 +8,21 @@
     "vendor": "Demo",
     "eula": "",
     "license": "",
+    "imports": [
+        "data-binding"
+    ],
     "webcomponents": [
         {
             "kind": "main",
             "tag": "com-demo-jointjs",
-            "url": "https://gaalve.github.io/SAC_Process_Mining/widget.js",
+            "url": "https://marylinem.github.io/CWProcessMining/widget.js",
             "integrity": "",
             "ignoreIntegrity": true
         },
         {
             "kind": "builder",
             "tag": "com-demo-jointjs-builder",
-            "url": "https://gaalve.github.io/SAC_Process_Mining/widget_builder.js",
+            "url": "https://marylinem.github.io/CWProcessMining/widget_builder.js",
             "integrity": "",
             "ignoreIntegrity": true
         }
