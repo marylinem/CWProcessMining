@@ -12,6 +12,7 @@
     <br/>
     <label for="selDim2">Select Timestamp</label>
     <select id="selDim2"/>
+    <br/>
     <style>
     :host {
     display: block;
@@ -24,6 +25,8 @@
             super();
             this._shadowRoot = this.attachShadow({ mode: "open" });
             this._shadowRoot.appendChild(template.content.cloneNode(true));
+
+
 
             this._shadowRoot.getElementById("selModel").onclick = (ev) => {
                 if (this.dataBindings) {
@@ -44,6 +47,31 @@
                     }
                 }
             }));
+        }
+
+        setOptions(dimensions, dim) {
+            dim.options.length = dimensions.length;
+            for (idx in dimensions) {
+                dim.options[i] = new Option(dimensions[idx].id);
+            }
+        }
+
+        onCustomWidgetAfterUpdate(changedProperties) {
+            if (this.dataBindings) {
+                const db = this.dataBindings.getDataBinding('flowChartData');
+                if (db) {
+                    const ds = db.getDataSource();
+                    if (ds) {
+                        const dimensions = ds.getDimensions();
+                        const dim0 = this._shadowRoot.getElementById("selDim0");
+                        const dim1 = this._shadowRoot.getElementById("selDim1");
+                        const dim2 = this._shadowRoot.getElementById("selDim2");
+                        this.setOptions(dimensions, dim0);
+                        this.setOptions(dimensions, dim1);
+                        this.setOptions(dimensions, dim2);
+                    }
+                }
+            }
         }
     }
     customElements.define("com-demo-jointjs-builder",

@@ -9,7 +9,8 @@
     "eula": "",
     "license": "",
     "imports": [
-        "data-binding"
+        "data-binding",
+        "datasource"
     ],
     "webcomponents": [
         {
