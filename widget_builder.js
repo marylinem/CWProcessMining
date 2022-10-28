@@ -25,9 +25,13 @@
             this._shadowRoot = this.attachShadow({ mode: "open" });
             this._shadowRoot.appendChild(template.content.cloneNode(true));
 
-            // const db = this.dataBindings.getDataBinding("flowChartData");
             this._shadowRoot.getElementById("selModel").onclick = (ev) => {
-                // db.openSelectModelDialog();
+                if (this.dataBindings) {
+                    const db = this.dataBindings.getDataBinding('flowChartData');
+                    if (db) {
+                        db.openSelectModelDialog();
+                    }
+                }
                 this._submit(ev);
             };
         }

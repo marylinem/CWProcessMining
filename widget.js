@@ -210,8 +210,7 @@
         }
         onCustomWidgetAfterUpdate(changedProperties) {
             if ("openDialog" in changedProperties) {
-                const db = this.dataBindings.getDataBinding('flowChartData');
-                db.openSelectModelDialog();
+
             }
 
             this.createModel();
