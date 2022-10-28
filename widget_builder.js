@@ -5,13 +5,19 @@
     <button id="selModel" type="button">Select Model</button>
     <br/>
     <label for="selDim0">Select Process</label>
-    <select id="selDim0"/>
+    <select id="selDim0">
+        <option>--NONE--</option>
+    </select>
     <br/>
     <label for="selDim1">Select Relation</label>
-    <select id="selDim1"/>
+    <select id="selDim1">
+        <option>--NONE--</option>
+    </select>
     <br/>
     <label for="selDim2">Select Timestamp</label>
-    <select id="selDim2"/>
+    <select id="selDim2">
+        <option>--NONE--</option>
+    </select>
     <br/>
     <style>
     :host {
