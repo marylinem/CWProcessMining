@@ -122,7 +122,8 @@
                     await db.addDimensionToFeed("dimensions", d0v);
                     await db.addDimensionToFeed("dimensions", d1v);
                     await db.addDimensionToFeed("dimensions", d2v);
-                    await ds.expandNode(d2v);
+                    const h2 = await ds.getHierarchies(d2v);
+                    console.log(h2);
                 }
             }
         }
