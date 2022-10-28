@@ -92,8 +92,6 @@
                         this.setOptions(dimensions, dim1);
                         this.setOptions(dimensions, dim2);
                         this.setOptions(measures, meas);
-
-                        await ds.expandNode(dim2);
                     }
                 }
             }
@@ -111,6 +109,7 @@
             if (this.dataBindings && d0v && d1v && d2v && mv) {
                 const db = this.dataBindings.getDataBinding('flowChartData');
                 if (db) {
+                    const ds = await db.getDataSource();
                     const oldDims = db.getDimensions("dimensions");
                     oldDims.forEach(async (id) => {
                         await db.removeDimension(id);
@@ -123,6 +122,7 @@
                     await db.addDimensionToFeed("dimensions", d0v);
                     await db.addDimensionToFeed("dimensions", d1v);
                     await db.addDimensionToFeed("dimensions", d2v);
+                    await ds.expandNode(d2v);
                 }
             }
         }
