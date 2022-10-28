@@ -56,10 +56,10 @@
         }
 
         setOptions(dimensions, dim) {
-            dim.options.length = dimensions.length;
-            for (idx in dimensions) {
-                dim.options[i] = new Option(dimensions[idx].id);
-            }
+            dim.options.length = dimensions.length + 1;
+            dimensions.forEach((d, i) => {
+                dim.options[i + 1] = new Option(d.description, d.id);
+            });
         }
 
         async onCustomWidgetAfterUpdate(changedProperties) {
