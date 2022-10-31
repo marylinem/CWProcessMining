@@ -216,8 +216,8 @@
             this.createModel();
         }
 
-        onCustomWidgetResize() {
-            this.paper.setDimensions(this.width, this.height);
+        onCustomWidgetResize(width, height) {
+            this.paper.setDimensions(width, height);
         }
     }
 
