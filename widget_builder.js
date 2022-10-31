@@ -2,7 +2,7 @@
 
     let template = document.createElement("template");
     template.innerHTML = `
-    <button id="selModel" type="button">Select Model</button>
+    <button id="selModel" type="button" class="sapUiBtn sapUiBtnS sapUiBtnNorm sapUiBtnSt">Select Model</button>
     <br/>
     <label for="selMeasure">Select Measure</label>
     <select id="selMeasure">
@@ -24,7 +24,7 @@
         <option>--NONE--</option>
     </select>
     <br/>
-    <button id="createModel" type="button">Create Model</button>
+    <button id="createModel" type="button" class="sapUiBtn">Create Model</button>
     <br/>
     <style>
     :host {
