@@ -203,7 +203,6 @@
             this.paper.options.defaultConnector = {
                 name: 'smooth'
             }
-
         }
         onCustomWidgetBeforeUpdate(changedProperties) {
             this._props = { ...this._props, ...changedProperties };
@@ -218,7 +217,7 @@
 
         onCustomWidgetResize(width, height) {
             this.paper.setDimensions(width, height);
-            this.createModel();
+
         }
     }
 
