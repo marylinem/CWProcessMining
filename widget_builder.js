@@ -2,30 +2,36 @@
 
     let template = document.createElement("template");
     template.innerHTML = `
-    <button id="selModel" type="button" class="sapUiBtn sapUiBtnS sapUiBtnNorm sapUiBtnSt" title="Bold" role="button">Select Model</button>
-    <br/>
-    <label for="selMeasure">Select Measure</label>
+    <button id="selModel" type="button">Select Model</button>
+    </br>
+    </br>
+    <label for="selMeasure">Select Measure</br></label>
     <select id="selMeasure">
         <option>--NONE--</option>
     </select>
-    <br/>
-    <label for="selDim0">Select Process</label>
+    </br>
+    </br>
+    <label for="selDim0">Select Process</br></label>
     <select id="selDim0">
         <option>--NONE--</option>
     </select>
-    <br/>
-    <label for="selDim1">Select Relation</label>
+    </br>
+    </br>
+    <label for="selDim1">Select Relation</br></label>
     <select id="selDim1">
         <option>--NONE--</option>
     </select>
-    <br/>
-    <label for="selDim2">Select Timestamp</label>
+    </br>
+    </br>
+    <label for="selDim2">Select Timestamp</br></label>
     <select id="selDim2">
         <option>--NONE--</option>
     </select>
-    <br/>
+    </br>
+    </br>
     <button id="createModel" type="button" class="sapUiBtn">Create Model</button>
-    <br/>
+    </br>
+    </br>
     <style>
     :host {
     display: block;
