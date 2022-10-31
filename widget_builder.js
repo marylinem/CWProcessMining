@@ -2,7 +2,7 @@
 
     let template = document.createElement("template");
     template.innerHTML = `
-    <button id="selModel" type="button" class="sapUiBtn sapUiBtnS sapUiBtnNorm sapUiBtnSt">Select Model</button>
+    <button id="selModel" type="button" class="sapUiBtn sapUiBtnS sapUiBtnNorm sapUiBtnSt" title="Bold" role="button">Select Model</button>
     <br/>
     <label for="selMeasure">Select Measure</label>
     <select id="selMeasure">
