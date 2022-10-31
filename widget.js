@@ -215,6 +215,10 @@
 
             this.createModel();
         }
+
+        onCustomWidgetResize() {
+            this.paper.setDimensions(this.width, this.height);
+        }
     }
 
     loadScript("https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.js");
