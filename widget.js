@@ -154,7 +154,7 @@
         traverseEdge(n0, n1, timeDif) {
             let key = n0 + "_" + n1;
             let val = 0;
-            let timeList = [];
+            let timeList = new Array();
             let rel = this.relations.get(key);
             if (rel) {
                 val = rel.val;
