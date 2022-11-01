@@ -38,9 +38,9 @@
         <option value="pct">Perecentile</option>
         <option value="avg">Average</option>
         <option value="med">Median</option>
-        <option value="dev">Deviati</option>
-        <option value="min">Amount</option>
-        <option value="max">Amount</option>
+        <option value="dev">Deviation</option>
+        <option value="min">Min</option>
+        <option value="max">Max</option>
     </select>
     <br>
     <button type="button" id="submitLabel">Set Label</button>
