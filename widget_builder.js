@@ -3,35 +3,35 @@
     let template = document.createElement("template");
     template.innerHTML = `
     <button id="selModel" type="button">Select Model</button>
-    </br>
-    </br>
-    <label for="selMeasure">Select Measure</br></label>
+    <br>
+    <br>
+    <label for="selMeasure">Select Measure<br></label>
     <select id="selMeasure">
         <option>--NONE--</option>
     </select>
-    </br>
-    </br>
-    <label for="selDim0">Select Process</br></label>
+    <br>
+    <br>
+    <label for="selDim0">Select Process<br></label>
     <select id="selDim0">
         <option>--NONE--</option>
     </select>
-    </br>
-    </br>
-    <label for="selDim1">Select Relation</br></label>
+    <br>
+    <br>
+    <label for="selDim1">Select Relation<br></label>
     <select id="selDim1">
         <option>--NONE--</option>
     </select>
-    </br>
-    </br>
-    <label for="selDim2">Select Timestamp</br></label>
+    <br>
+    <br>
+    <label for="selDim2">Select Timestamp<br></label>
     <select id="selDim2">
         <option>--NONE--</option>
     </select>
-    </br>
-    </br>
+    <br>
+    <br>
     <button id="createModel" type="button" class="sapUiBtn">Create Model</button>
-    </br>
-    </br>
+    <br>
+    <br>
     <div>Choose Edge Label:</div>
     <select id="edgeLabel">
         <option value="amt">Amount</option>
@@ -42,6 +42,7 @@
         <option value="min">Amount</option>
         <option value="max">Amount</option>
     </select>
+    <br>
     <input type="submit" id="submitLabel">
     <style>
     :host {
@@ -72,7 +73,7 @@
                 this._submit(ev);
             };
 
-            this._shadowRoot.getElementById("submitLabel").addEventListener("submit", (ev) => {
+            this._shadowRoot.getElementById("submitLabel").onclick = (ev) => {
                 ev.preventDefault();
                 this.dispatchEvent(new CustomEvent("propertiesChanged", {
                     detail: {
@@ -81,7 +82,7 @@
                         }
                     }
                 }));
-            })
+            }
         }
         _submit(e) {
             e.preventDefault();
