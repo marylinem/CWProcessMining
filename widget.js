@@ -170,7 +170,7 @@
             if (n) {
                 amount = n.amount;
             }
-            this.nodes.set(id, { label: label, amount: amount });
+            this.nodes.set(id, { label: label, amount: amount + 1 });
         }
 
         dateDif(d1, d2) {
