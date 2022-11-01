@@ -86,7 +86,7 @@
 
         getEdgeLabel(edge) {
             if (this.useLabel == "amt") return "" + edge.val;
-            if (this.useLabel == "pct") return "" + edge.pct;
+            if (this.useLabel == "pct") return "" + this.round(edge.pct);
             if (this.useLabel == "avg") return this.getTimeLabel(edge.tavg);
             if (this.useLabel == "med") return this.getTimeLabel(edge.tmed);
             if (this.useLabel == "dev") return this.getTimeLabel(edge.tdev);
@@ -205,7 +205,14 @@
             let prevDate = null;
             let process = null;
             this.nodes.set("_start", { label: "Start", amount: 0 });
-            this.nodes.set("_end", { label: "End", amount: 0 });
+            let startNode = {
+                id: "_start",
+                label: "Start"
+            }
+            let endNode = {
+                id: "_end",
+                label: "End"
+            }
             data.forEach(row => {
                 process = row.dimensions_0;
                 let relation = row.dimensions_1;
@@ -214,7 +221,11 @@
                     this.traverseEdge(prevProcessData.id, process.id, this.dateDif(prevDate, date));
                 }
                 else {
-                    if (curRelationId) this.traverseEdge(prevProcessData.id, "_end", 0);
+                    if (curRelationId) {
+                        this.visitNode(endNode.id, endNode.label);
+                        this.traverseEdge(prevProcessData.id, "_end", 0);
+                    }
+                    this.visitNode(startNode.id, startNode.label);
                     this.traverseEdge("_start", process.id, 0);
                     curRelationId = relation.id;
                 }
@@ -223,6 +234,7 @@
                 this.visitNode(process.id, process.label);
             });
             this.traverseEdge(process.id, "_end", 0);
+            this.visitNode(endNode.id, endNode.label);
             this.calculateStatistics();
             this.constructGraph();
         }
