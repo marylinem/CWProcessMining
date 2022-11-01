@@ -56,6 +56,43 @@
             this.relations = new Map();
         }
 
+        calculateStatistics() {
+            this.relations.forEach(v => {
+                v.pct = v.val / this.nodes.get(v.n0).amount;
+                v.tavg = v.timeList.reduce((a, b) => a + b, 0) / v.val;
+                v.timeList.sort();
+                v.tmed = v.timeList[Math.floor(v.timeList.length / 2)] || 0;
+                v.tdev = Math.sqrt(v.timeList.reduce((a, b) => a + (b - v.tavg) * (b - v.tavg), 0) / v.val);
+                v.tmin = v.timeList.reduce((a, b) => Math.min(a, b), 0);
+                v.tmax = v.timeList.reduce((a, b) => Math.max(a, b), 0)
+            });
+        }
+
+        round(val) {
+            return Math.round(val * 10) / 10; //round to one decimal
+        }
+
+        getTimeLabel(t) {
+            /// (1000 * 60 * 60 * 24)
+            if (t < 1000) return "" + t + "ms";
+            if (t < 1000 * 60) return "" + this.round(t / 1000) + "s";
+            if (t < 1000 * 60 * 60) return "" + this.round(t / 1000 / 60) + "min";
+            if (t < 1000 * 60 * 60 * 24) return "" + this.round(t / 1000 / 60 / 60) + "h";
+            if (t < 1000 * 60 * 60 * 24 * 365) return "" + this.round(t / 1000 / 60 / 60 / 24) + "d";
+            return "" + this.round(t / 1000 / 60 / 60 / 24 / 365) + "yrs";
+        }
+
+        getEdgeLabel(edge) {
+            if (this.useLabel == "amt") return "" + edge.val;
+            if (this.useLabel == "pct") return "" + edge.pct;
+            if (this.useLabel == "avg") return this.getTimeLabel(edge.tavg);
+            if (this.useLabel == "med") return this.getTimeLabel(edge.tmed);
+            if (this.useLabel == "dev") return this.getTimeLabel(edge.tdev);
+            if (this.useLabel == "min") return this.getTimeLabel(edge.tmin);
+            if (this.useLabel == "max") return this.getTimeLabel(edge.tmax);
+            return "" + edge.val;
+        }
+
         constructGraph() {
             console.log("Drawing Graph")
 
@@ -74,7 +111,7 @@
                         ry: "1px",
                     },
                     label: {
-                        text: n,
+                        text: n.label,
                         fill: '#485c6b'
                     }
                 });
@@ -90,7 +127,7 @@
                 link.appendLabel({
                     attrs: {
                         text: {
-                            text: "" + r.val + (r.timeDif > 0 ? "\nAvgTime: " + Math.round(r.timeDif / r.val * 10) / 10 : ""),
+                            text: this.getEdgeLabel(r),
                             fill: "#346187",
                         },
 
@@ -117,17 +154,27 @@
         traverseEdge(n0, n1, timeDif) {
             let key = n0 + "_" + n1;
             let val = 0;
-            let td = 0;
+            let timeList = [];
             let rel = this.relations.get(key);
             if (rel) {
                 val = rel.val;
-                td = rel.timeDif;
+                timeList = rel.timeDif;
             }
-            this.relations.set(key, { val: val + 1, n0: n0, n1: n1, timeDif: td + timeDif });
+            timeList.push(timeDif);
+            this.relations.set(key, { val: val + 1, n0: n0, n1: n1, timeList: timeList });
+        }
+
+        visitNode(id, label) {
+            let n = this.nodes.get(id);
+            let amount = 0;
+            if (n) {
+                amount = n.amount;
+            }
+            this.nodes.set(id, { label: label, amount: amount });
         }
 
         dateDif(d1, d2) {
-            return (d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24);
+            return (d2.getTime() - d1.getTime());
         }
 
         /*
@@ -155,8 +202,8 @@
             let prevProcessData = null;
             let prevDate = null;
             let process = null;
-            this.nodes.set("_start", "Start");
-            this.nodes.set("_end", "End");
+            this.nodes.set("_start", { label: "Start", amount: 0 });
+            this.nodes.set("_end", { label: "End", amount: 0 });
             data.forEach(row => {
                 process = row.dimensions_0;
                 let relation = row.dimensions_1;
@@ -171,9 +218,10 @@
                 }
                 prevProcessData = process;
                 prevDate = date;
-                this.nodes.set(process.id, process.label);
+                this.visitNode(process.id, process.label);
             });
             this.traverseEdge(process.id, "_end", 0);
+            this.calculateStatistics();
             this.constructGraph();
         }
 
@@ -208,8 +256,8 @@
             this._props = { ...this._props, ...changedProperties };
         }
         onCustomWidgetAfterUpdate(changedProperties) {
-            if ("openDialog" in changedProperties) {
-
+            if ("useLabel" in changedProperties) {
+                this.useLabel = changedProperties["useLabel"];
             }
 
             this.createModel();
