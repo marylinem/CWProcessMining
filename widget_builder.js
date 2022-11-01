@@ -95,9 +95,9 @@
             }));
         }
 
-        setOptions(dimensions, dim) {
+        setOptions(dimensions, dim, newVal = undefined) {
             dim.options.length = dimensions.length + 1;
-            const val = dim.value;
+            const val = newVal || dim.value;
             dimensions.forEach((d, i) => {
                 dim.options[i + 1] = new Option(d.description, d.id, undefined, d.id == val);
             });
@@ -118,19 +118,10 @@
                         const dim2 = this._shadowRoot.getElementById("selDim2");
                         const meas = this._shadowRoot.getElementById("selMeasure");
 
-                        if (dbDims) {
-                            if (dbDims[0]) dim0.value = dbDims[0];
-                            if (dbDims[1]) dim1.value = dbDims[1];
-                            if (dbDims[2]) dim2.value = dbDims[2];
-                        }
-                        if (dbMeas) {
-                            if (dbMeas[0]) meas.value = dbMeas[0];
-                        }
-
-                        this.setOptions(dimensions, dim0);
-                        this.setOptions(dimensions, dim1);
-                        this.setOptions(dimensions, dim2);
-                        this.setOptions(measures, meas);
+                        this.setOptions(dimensions, dim0, dbDims?.[0]);
+                        this.setOptions(dimensions, dim1, dbDims?.[1]);
+                        this.setOptions(dimensions, dim2, dbDims?.[2]);
+                        this.setOptions(measures, meas, dbMeas?.[0]);
                     }
                 }
             }
