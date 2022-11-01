@@ -43,7 +43,7 @@
         <option value="max">Amount</option>
     </select>
     <br>
-    <input type="submit" id="submitLabel">
+    <button type="button" id="submitLabel">Set Label</button>
     <style>
     :host {
     display: block;
