@@ -32,6 +32,17 @@
     <button id="createModel" type="button" class="sapUiBtn">Create Model</button>
     </br>
     </br>
+    <div>Choose Edge Label:</div>
+    <select id="edgeLabel">
+        <option value="amt">Amount</option>
+        <option value="pct">Perecentile</option>
+        <option value="avg">Average</option>
+        <option value="med">Median</option>
+        <option value="dev">Deviati</option>
+        <option value="min">Amount</option>
+        <option value="max">Amount</option>
+    </select>
+    <input type="submit" id="submitLabel">
     <style>
     :host {
     display: block;
@@ -60,13 +71,23 @@
                 await this.createModel();
                 this._submit(ev);
             };
+
+            this._shadowRoot.getElementById("submitLabel").addEventListener("submit", (ev) => {
+                ev.preventDefault();
+                this.dispatchEvent(new CustomEvent("propertiesChanged", {
+                    detail: {
+                        properties: {
+                            useLabel: this._shadowRoot.getElementById("edgeLabel").value
+                        }
+                    }
+                }));
+            })
         }
         _submit(e) {
             e.preventDefault();
             this.dispatchEvent(new CustomEvent("propertiesChanged", {
                 detail: {
                     properties: {
-                        openDialog: true
                     }
                 }
             }));
