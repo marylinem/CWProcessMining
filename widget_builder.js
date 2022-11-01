@@ -75,10 +75,11 @@
 
             this._shadowRoot.getElementById("submitLabel").onclick = (ev) => {
                 ev.preventDefault();
+                let label = this._shadowRoot.getElementById("edgeLabel").value;
                 this.dispatchEvent(new CustomEvent("propertiesChanged", {
                     detail: {
                         properties: {
-                            useLabel: this._shadowRoot.getElementById("edgeLabel").value
+                            useLabel: label
                         }
                     }
                 }));
