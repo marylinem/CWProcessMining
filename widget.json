@@ -28,7 +28,13 @@
             "ignoreIntegrity": true
         }
     ],
-    "properties": {},
+    "properties": {
+        "useLabel": {
+            "type": "string",
+            "description": "Label type for Edge",
+            "default": "amt"
+        }
+    },
     "methods": {},
     "events": {
         "onClick": {
