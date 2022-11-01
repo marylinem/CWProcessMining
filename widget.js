@@ -58,13 +58,15 @@
 
         calculateStatistics() {
             this.relations.forEach(v => {
-                v.pct = v.val / this.nodes.get(v.n0).amount;
+                let node = this.nodes.get(v.n0);
+                let namount = node.amount;
+                v.pct = v.val / namount;
                 v.tavg = v.timeList.reduce((a, b) => a + b, 0) / v.val;
                 v.timeList.sort();
                 v.tmed = v.timeList[Math.floor(v.timeList.length / 2)] || 0;
                 v.tdev = Math.sqrt(v.timeList.reduce((a, b) => a + (b - v.tavg) * (b - v.tavg), 0) / v.val);
-                v.tmin = v.timeList.reduce((a, b) => Math.min(a, b), 0);
-                v.tmax = v.timeList.reduce((a, b) => Math.max(a, b), 0)
+                v.tmin = v.timeList.reduce((a, b) => Math.min(a, b), Infinity);
+                v.tmax = v.timeList.reduce((a, b) => Math.max(a, b), -Infinity)
             });
         }
 
@@ -73,7 +75,7 @@
         }
 
         getTimeLabel(t) {
-            /// (1000 * 60 * 60 * 24)
+            if (t == 0) return "-"
             if (t < 1000) return "" + t + "ms";
             if (t < 1000 * 60) return "" + this.round(t / 1000) + "s";
             if (t < 1000 * 60 * 60) return "" + this.round(t / 1000 / 60) + "min";
