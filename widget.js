@@ -158,7 +158,7 @@
             let rel = this.relations.get(key);
             if (rel) {
                 val = rel.val;
-                timeList = rel.timeDif;
+                timeList = rel.timeList;
             }
             timeList.push(timeDif);
             this.relations.set(key, { val: val + 1, n0: n0, n1: n1, timeList: timeList });
