@@ -103,11 +103,11 @@
             });
         }
 
-        async onCustomWidgetAfterUpdate(changedProperties) {
+        async onCustomWidgetAfterUpdate() {
             if (this.dataBindings) {
                 const db = this.dataBindings.getDataBinding('flowChartData');
-                console.log(db.getDimensions("dimensions"));
-                console.log(db.getMembers("measures"));
+                let dbDims = db.getDimensions("dimensions");
+                let dbMeas = db.getMembers("measures");
                 if (db) {
                     const ds = await db.getDataSource();
                     if (ds) {
@@ -117,6 +117,16 @@
                         const dim1 = this._shadowRoot.getElementById("selDim1");
                         const dim2 = this._shadowRoot.getElementById("selDim2");
                         const meas = this._shadowRoot.getElementById("selMeasure");
+
+                        if (dbDims) {
+                            if (dbDims[0]) dim0.value = dbDims[0];
+                            if (dbDims[1]) dim1.value = dbDims[1];
+                            if (dbDims[2]) dim2.value = dbDims[2];
+                        }
+                        if (dbMeas) {
+                            if (dbMeas[0]) meas.value = dbMeas[0];
+                        }
+
                         this.setOptions(dimensions, dim0);
                         this.setOptions(dimensions, dim1);
                         this.setOptions(dimensions, dim2);
