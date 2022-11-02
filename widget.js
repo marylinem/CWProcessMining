@@ -260,7 +260,7 @@
             select.addEventListener("change", () => {
                 this.useLabel = select.value;
             });
-            let container = _shadowRoot.appendChild(divGraph.cloneNode(true));
+            let container = this._shadowRoot.appendChild(divGraph.cloneNode(true));
             this._props = {};
             this.addEventListener("click", event => {
                 var event = new Event("onClick");
