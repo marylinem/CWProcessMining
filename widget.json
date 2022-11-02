@@ -10,7 +10,8 @@
     "license": "",
     "imports": [
         "data-binding",
-        "datasource"
+        "datasource",
+        "input-controls"
     ],
     "webcomponents": [
         {

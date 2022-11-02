@@ -45,7 +45,8 @@
     }
 
 
-    let div = document.createElement("div");
+    let divDropdown = document.createElement("div");
+    let divGraph = document.createElement("div");
 
     class JointJS extends HTMLElement {
 
@@ -242,7 +243,9 @@
         constructor() {
             super();
             this.appendChild(template.content.cloneNode(true));
-            let container = this.appendChild(div.cloneNode(true));
+            let dropdownContainer = this.appendChild(divDropdown.cloneNode(true));
+            let dropdown = dropdownContainer.appendChild(new Dropdown())
+            let container = this.appendChild(divGraph.cloneNode(true));
             this._props = {};
             this.addEventListener("click", event => {
                 var event = new Event("onClick");
@@ -256,8 +259,8 @@
             this.paper = new joint.dia.Paper({
                 el: container,
                 model: this.graph,
-                width: 1200,
-                height: 1200,
+                width: "100%",
+                height: "100%",
                 gridSize: 1,
                 cellViewNamespace: namespace
             });
@@ -278,7 +281,7 @@
         }
 
         onCustomWidgetResize(width, height) {
-            this.paper.setDimensions(width, height);
+            //this.paper.setDimensions(width, height);
 
         }
     }
