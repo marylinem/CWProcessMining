@@ -16,19 +16,6 @@
     </div>
     
     <style>
-    :host {
-        border-radius: 25px;
-        border-width: 4px;
-        border-color: black;
-        border-style: solid;
-        width: 500px;
-        heihgt: 500px;
-        display: block;
-        }
-        #diagram-container {
-            width: 500px;
-            height: 500px;
-        }
     </style> 
     `;
 
