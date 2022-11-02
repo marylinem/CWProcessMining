@@ -259,6 +259,8 @@
             let select = this._shadowRoot.getElementById("edgeLabel");
             select.addEventListener("change", () => {
                 this.useLabel = select.value;
+                this.graph.clear();
+                this.constructGraph();
             });
             let container = this._shadowRoot.appendChild(divGraph.cloneNode(true));
             this._props = {};
