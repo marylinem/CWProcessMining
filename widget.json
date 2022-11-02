@@ -36,7 +36,17 @@
             "default": "amt"
         }
     },
-    "methods": {},
+    "methods": {
+        "setDropdownActions": {
+            "description": "sets dropdown actions",
+            "parameters": [
+                {
+                    "name": "dropdown",
+                    "type": "Dropdown"
+                }
+            ]
+        }
+    },
     "events": {
         "onClick": {
             "description": "Called when the user clicks the Colored Box."

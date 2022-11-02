@@ -240,11 +240,14 @@
             this.constructGraph();
         }
 
+        setDropdownActions(dropdown) {
+            console.log(dropdown);
+        }
+
         constructor() {
             super();
             this.appendChild(template.content.cloneNode(true));
             let dropdownContainer = this.appendChild(divDropdown.cloneNode(true));
-            let dropdown = dropdownContainer.appendChild(new Dropdown())
             let container = this.appendChild(divGraph.cloneNode(true));
             this._props = {};
             this.addEventListener("click", event => {
