@@ -10,8 +10,7 @@
     "license": "",
     "imports": [
         "data-binding",
-        "datasource",
-        "input-controls"
+        "datasource"
     ],
     "webcomponents": [
         {
@@ -36,17 +35,7 @@
             "default": "amt"
         }
     },
-    "methods": {
-        "setDropdownActions": {
-            "description": "sets dropdown actions",
-            "parameters": [
-                {
-                    "name": "dropdown",
-                    "type": "Dropdown"
-                }
-            ]
-        }
-    },
+    "methods": {},
     "events": {
         "onClick": {
             "description": "Called when the user clicks the Colored Box."

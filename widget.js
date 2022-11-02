@@ -2,6 +2,19 @@
     let template = document.createElement("template");
     template.innerHTML = `
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.5.5/joint.css" />
+    <div id="divDropdown>
+    Select Edge-Label:
+    <select id="edgeLabel">
+        <option value="amt">Amount</option>
+        <option value="pct">Perecentile</option>
+        <option value="avg">Average</option>
+        <option value="med">Median</option>
+        <option value="dev">Deviation</option>
+        <option value="min">Min</option>
+        <option value="max">Max</option>
+    </select>
+    </div>
+    
     <style>
     :host {
         border-radius: 25px;
@@ -45,7 +58,6 @@
     }
 
 
-    let divDropdown = document.createElement("div");
     let divGraph = document.createElement("div");
 
     class JointJS extends HTMLElement {
@@ -240,15 +252,15 @@
             this.constructGraph();
         }
 
-        setDropdownActions(dropdown) {
-            console.log(dropdown);
-        }
-
         constructor() {
             super();
-            this.appendChild(template.content.cloneNode(true));
-            let dropdownContainer = this.appendChild(divDropdown.cloneNode(true));
-            let container = this.appendChild(divGraph.cloneNode(true));
+            this._shadowRoot = this.attachShadow({ mode: "open" });
+            this._shadowRoot.appendChild(template.content.cloneNode(true));
+            let select = this._shadowRoot.getElementById("edgeLabel");
+            select.addEventListener("change", () => {
+                this.useLabel = select.value;
+            });
+            let container = _shadowRoot.appendChild(divGraph.cloneNode(true));
             this._props = {};
             this.addEventListener("click", event => {
                 var event = new Event("onClick");
