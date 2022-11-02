@@ -2,7 +2,7 @@
     let template = document.createElement("template");
     template.innerHTML = `
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.5.5/joint.css" />
-    <div id="divDropdown>
+    <div id="divDropdown">
     Select Edge-Label:
     <select id="edgeLabel">
         <option value="amt">Amount</option>
