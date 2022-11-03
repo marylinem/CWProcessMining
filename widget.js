@@ -5,13 +5,13 @@
     <div id="divDropdown">
     Select Edge-Label:
     <select id="edgeLabel">
-        <option value="amt">Amount</option>
+        <option value="amt">#Cases</option>
         <option value="pct">Perecentile</option>
-        <option value="avg">Average</option>
-        <option value="med">Median</option>
-        <option value="dev">Deviation</option>
-        <option value="min">Min</option>
-        <option value="max">Max</option>
+        <option value="avg">Duration (average)</option>
+        <option value="med">Duration (median)</option>
+        <option value="dev">Duration (deviation)</option>
+        <option value="min">Duration (min)</option>
+        <option value="max">Duration (max)</option>
     </select>
     </div>
     

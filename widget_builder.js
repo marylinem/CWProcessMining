@@ -29,21 +29,9 @@
     </select>
     <br>
     <br>
-    <button id="createModel" type="button" class="sapUiBtn">Create Model</button>
+    <button id="createModel" type="button">Apply</button>
     <br>
     <br>
-    <div>Choose Edge Label:</div>
-    <select id="edgeLabel">
-        <option value="amt">Amount</option>
-        <option value="pct">Perecentile</option>
-        <option value="avg">Average</option>
-        <option value="med">Median</option>
-        <option value="dev">Deviation</option>
-        <option value="min">Min</option>
-        <option value="max">Max</option>
-    </select>
-    <br>
-    <button type="button" id="submitLabel">Set Label</button>
     <style>
     :host {
     display: block;
@@ -72,18 +60,6 @@
                 await this.createModel();
                 this._submit(ev);
             };
-
-            this._shadowRoot.getElementById("submitLabel").onclick = (ev) => {
-                ev.preventDefault();
-                let label = this._shadowRoot.getElementById("edgeLabel").value;
-                this.dispatchEvent(new CustomEvent("propertiesChanged", {
-                    detail: {
-                        properties: {
-                            useLabel: label
-                        }
-                    }
-                }));
-            }
         }
         _submit(e) {
             e.preventDefault();
@@ -145,9 +121,8 @@
             if (this.dataBindings && d0v && d1v && d2v && mv) {
                 const db = this.dataBindings.getDataBinding('flowChartData');
                 if (db) {
-                    const ds = await db.getDataSource();
-                    if (ds) await db.setModel(await ds.getInfo().modelId);
                     const oldDims = db.getDimensions("dimensions");
+                    /* // Not working...
                     console.log("OldDims:", oldDims);
                     await oldDims.forEach(async (id) => {
                         await db.removeDimension(id);
@@ -156,14 +131,12 @@
                     oldMeas.forEach(async (id) => {
                         await db.removeMember(id);
                     });
+                    */
 
-                    console.log("curDims:", db.getDimensions("dimensions"));
-                    console.log("Adding: ", d0v, d1v, d2v);
                     await db.addMemberToFeed("measures", mv);
                     await db.addDimensionToFeed("dimensions", d0v, 0);
                     await db.addDimensionToFeed("dimensions", d1v, 1);
                     await db.addDimensionToFeed("dimensions", d2v, 2);
-                    console.log("newDims:", db.getDimensions("dimensions"));
                 }
             }
         }
