@@ -14,7 +14,12 @@
         <option value="max">Duration (max)</option>
     </select>
     </div>
+    <p>
+    <label for="amount">Price range:</label>
+    <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+    </p>
     
+    <div id="slider-range"></div>
     <style>
     </style> 
     `;
@@ -243,6 +248,21 @@
             super();
             this._shadowRoot = this.attachShadow({ mode: "open" });
             this._shadowRoot.appendChild(template.content.cloneNode(true));
+
+            $(function () {
+                $("#slider-range").slider({
+                    range: true,
+                    min: 0,
+                    max: 500,
+                    values: [75, 300],
+                    slide: function (event, ui) {
+                        $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                    }
+                });
+                $("#amount").val("$" + $("#slider-range").slider("values", 0) +
+                    " - $" + $("#slider-range").slider("values", 1));
+            });
+
             let select = this._shadowRoot.getElementById("edgeLabel");
             select.addEventListener("change", () => {
                 this.useLabel = select.value;
