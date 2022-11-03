@@ -47,7 +47,7 @@
             this._shadowRoot = this.attachShadow({ mode: "open" });
             this._shadowRoot.appendChild(template.content.cloneNode(true));
 
-            new sap.m.Button({ text: "Test Button" }).placeAt("builderContent");
+            //new sap.m.Button({ text: "Test Button" }).placeAt("builderContent");
 
             this._shadowRoot.getElementById("selModel").onclick = (ev) => {
                 if (this.dataBindings) {
