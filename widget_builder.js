@@ -149,7 +149,7 @@
                     const oldDims = db.getDimensions("dimensions");
                     console.log("OldDims:", oldDims);
                     await oldDims.forEach(async (id) => {
-                        db.removeDimension(id);
+                        await db.removeDimension(id);
                     });
                     const oldMeas = db.getMembers("measures");
                     oldMeas.forEach(async (id) => {
