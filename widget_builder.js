@@ -84,7 +84,7 @@
                     }
                 }));
             }
-            this.updateSelector();
+            this.updateSelector(true);
         }
         _submit(e) {
             e.preventDefault();
