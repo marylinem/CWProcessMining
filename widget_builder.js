@@ -84,7 +84,6 @@
                     }
                 }));
             }
-            this.updateSelector(true);
         }
         _submit(e) {
             e.preventDefault();
@@ -105,10 +104,15 @@
         }
 
         async updateSelector(initialUpdate) {
+
+        }
+
+        async onCustomWidgetAfterUpdate() {
+            console.log("onCustomWidget");
             if (this.dataBindings) {
                 const db = this.dataBindings.getDataBinding('flowChartData');
-                let dbDims = initialUpdate ? db.getDimensions("dimensions") : undefined;
-                let dbMeas = initialUpdate ? db.getMembers("measures") : undefined;
+                let dbDims = db.getDimensions("dimensions");
+                let dbMeas = db.getMembers("measures");
                 if (db) {
                     const ds = await db.getDataSource();
                     if (ds) {
@@ -126,11 +130,6 @@
                     }
                 }
             }
-        }
-
-        async onCustomWidgetAfterUpdate() {
-            console.log("onCustomWidget");
-            await this.updateSelector(false);
         }
 
         async createModel() {
