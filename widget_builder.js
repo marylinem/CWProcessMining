@@ -12,7 +12,7 @@
     </select>
     <br>
     <br>
-    <label for="selDim0">Select Process<br></label>
+    <label for="selDim0">Select Events<br></label>
     <select id="selDim0">
         <option>--NONE--</option>
     </select>
