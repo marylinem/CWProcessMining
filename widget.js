@@ -57,6 +57,7 @@
             this.graph.clear();
             this.nodes = new Map();
             this.relations = new Map();
+            this.pathFreq = new Map();
         }
 
         calculateStatistics() {
@@ -102,6 +103,8 @@
             console.log("Drawing Graph")
 
             let nodeMap = new Map();
+
+
 
 
             this.nodes.forEach((n, k) => {
@@ -178,6 +181,13 @@
             this.nodes.set(id, { label: label, amount: amount + 1 });
         }
 
+        visitPath(id) {
+            let p = this.pathFreq.get(id);
+            let amount = 0;
+            if (p) amount = p;
+            this.pathFreq.set(id, amount);
+        }
+
         dateDif(d1, d2) {
             return (d2.getTime() - d1.getTime());
         }
@@ -216,10 +226,12 @@
                 id: "_end",
                 label: "End"
             }
+            let path = "";
             data.forEach(row => {
                 process = row.dimensions_0;
                 let relation = row.dimensions_1;
                 let date = new Date(row.dimensions_2.id);
+                path += process.id + ";";
                 if (curRelationId == relation.id) {
                     this.traverseEdge(prevProcessData.id, process.id, this.dateDif(prevDate, date));
                 }
@@ -227,6 +239,8 @@
                     if (curRelationId) {
                         this.visitNode(endNode.id, endNode.label);
                         this.traverseEdge(prevProcessData.id, "_end", 0);
+                        this.visitPath(path);
+                        path = "";
                     }
                     this.visitNode(startNode.id, startNode.label);
                     this.traverseEdge("_start", process.id, 0);
