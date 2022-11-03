@@ -270,7 +270,7 @@
             });
 
             this.paper.options.defaultConnector = {
-                name: 'smooth'
+                name: 'curve'
             }
         }
         onCustomWidgetBeforeUpdate(changedProperties) {
