@@ -149,7 +149,7 @@
                     const ds = await db.getDataSource();
                     const oldDims = db.getDimensions("dimensions");
                     console.log("OldDims:", oldDims);
-                    oldDims.forEach((id) => {
+                    await oldDims.forEach(async (id) => {
                         db.removeDimension(id);
                     });
                     const oldMeas = db.getMembers("measures");
@@ -160,9 +160,9 @@
                     console.log("curDims:", db.getDimensions("dimensions"));
                     console.log("Adding: ", d0v, d1v, d2v);
                     await db.addMemberToFeed("measures", mv);
-                    await db.addDimensionToFeed("dimensions", d0v);
-                    await db.addDimensionToFeed("dimensions", d1v);
-                    await db.addDimensionToFeed("dimensions", d2v);
+                    await db.addDimensionToFeed("dimensions", d0v, 0);
+                    await db.addDimensionToFeed("dimensions", d1v, 1);
+                    await db.addDimensionToFeed("dimensions", d2v, 2);
                     console.log("newDims:", db.getDimensions("dimensions"));
                 }
             }
