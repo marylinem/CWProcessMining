@@ -148,6 +148,7 @@
                 if (db) {
                     const ds = await db.getDataSource();
                     const oldDims = db.getDimensions("dimensions");
+                    console.log("OldDims:", oldDims);
                     oldDims.forEach(async (id) => {
                         await db.removeDimension(id);
                     });
@@ -156,14 +157,13 @@
                         await db.removeMember(id);
                     });
 
-                    console.log(db.getDimensions("dimensions"));
-
+                    console.log("curDims:", db.getDimensions("dimensions"));
+                    console.log("Adding: ", d0v, d1v, d2v);
                     await db.addMemberToFeed("measures", mv);
                     await db.addDimensionToFeed("dimensions", d0v);
                     await db.addDimensionToFeed("dimensions", d1v);
                     await db.addDimensionToFeed("dimensions", d2v);
-                    const h2 = await ds.getHierarchies(d2v);
-                    console.log(h2);
+                    console.log("newDims:", db.getDimensions("dimensions"));
                 }
             }
         }
