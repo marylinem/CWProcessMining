@@ -104,6 +104,7 @@
         }
 
         async onCustomWidgetAfterUpdate() {
+            console.log("onCustomWidget");
             if (this.dataBindings) {
                 const db = this.dataBindings.getDataBinding('flowChartData');
                 let dbDims = db.getDimensions("dimensions");
@@ -128,6 +129,7 @@
         }
 
         async createModel() {
+            console.log("createModel");
             const dim0 = this._shadowRoot.getElementById("selDim0");
             const dim1 = this._shadowRoot.getElementById("selDim1");
             const dim2 = this._shadowRoot.getElementById("selDim2");
@@ -148,6 +150,9 @@
                     oldMeas.forEach(async (id) => {
                         await db.removeMember(id);
                     });
+
+                    console.log(db.getDimensions("dimensions"));
+
                     await db.addMemberToFeed("measures", mv);
                     await db.addDimensionToFeed("dimensions", d0v);
                     await db.addDimensionToFeed("dimensions", d1v);
