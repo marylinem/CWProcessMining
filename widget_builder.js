@@ -2,6 +2,7 @@
 
     let template = document.createElement("template");
     template.innerHTML = `
+    <div class="sapUiBody" id="builderContent">
     <button id="selModel" type="button">Select Model</button>
     <br>
     <br>
@@ -32,6 +33,7 @@
     <button id="createModel" type="button">Apply</button>
     <br>
     <br>
+    </div>
     <style>
     :host {
     display: block;
@@ -45,7 +47,7 @@
             this._shadowRoot = this.attachShadow({ mode: "open" });
             this._shadowRoot.appendChild(template.content.cloneNode(true));
 
-            let b = this._shadowRoot.appendChild(new sap.m.Button("widget_builder", { text: "Test Button" }));
+            new sap.m.Button({ text: "Test Button" }).placeAt("builderContent");
 
             this._shadowRoot.getElementById("selModel").onclick = (ev) => {
                 if (this.dataBindings) {
