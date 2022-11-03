@@ -149,8 +149,8 @@
                     const ds = await db.getDataSource();
                     const oldDims = db.getDimensions("dimensions");
                     console.log("OldDims:", oldDims);
-                    oldDims.forEach(async (id) => {
-                        await db.removeDimension(id);
+                    oldDims.forEach((id) => {
+                        db.removeDimension(id);
                     });
                     const oldMeas = db.getMembers("measures");
                     oldMeas.forEach(async (id) => {
