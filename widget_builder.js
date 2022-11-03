@@ -146,6 +146,7 @@
                 const db = this.dataBindings.getDataBinding('flowChartData');
                 if (db) {
                     const ds = await db.getDataSource();
+                    if (ds) await db.setModel(await ds.getInfo().modelId);
                     const oldDims = db.getDimensions("dimensions");
                     console.log("OldDims:", oldDims);
                     await oldDims.forEach(async (id) => {
