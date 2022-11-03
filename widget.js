@@ -14,9 +14,9 @@
         <option value="max">Duration (max)</option>
     </select>
     </div>
-    <input type="range" id="rangeMax" min="0" max="100">
+    <input type="range" id="rangeMax" min="0" max="100" value="100">
     <label for="rangeMax">Max %</label>
-    <input type="range" id="rangeMin" min="0" max="100">
+    <input type="range" id="rangeMin" min="0" max="100" value="0">
     <label for="rangeMin">Min %</label>
     <style>
     </style> 
