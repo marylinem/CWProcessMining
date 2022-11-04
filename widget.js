@@ -143,7 +143,12 @@
                 let first = true;
                 let prevProcessData = null;
                 let process = null;
+                let last = false;
                 for (let n of nodes) {
+                    if (n == "") {
+                        last = true;
+                        break;
+                    }
                     process = n;
                     path += process.id + ";";
                     if (!first) {
@@ -157,9 +162,10 @@
                     prevProcessData = process;
                     this.visitNodeImpl(filteredNodes, process, this.nodes.get(process));
                 }
-                this.traverseEdgeImpl(filteredRelations, process, "_end", 0);
-                this.visitNodeImpl(filteredNodes, endNode.id, endNode.label);
-
+                if (!last) {
+                    this.traverseEdgeImpl(filteredRelations, process, "_end", 0);
+                    this.visitNodeImpl(filteredNodes, endNode.id, endNode.label);
+                }
             }
 
 
