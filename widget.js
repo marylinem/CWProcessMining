@@ -253,12 +253,12 @@
                 val = rel.val;
                 timeList = rel.timeList;
             }
-            timeList.push(timeDif);
+            timeList.concat(timeDif);
             map.set(key, { val: val + n, n0: n0, n1: n1, timeList: timeList });
         }
 
         traverseEdge(n0, n1, timeDif) {
-            this.traverseEdgeImpl(this.relations, n0, n1, timeDif, 1);
+            this.traverseEdgeImpl(this.relations, n0, n1, [timeDif], 1);
         }
 
         visitNodeImpl(map, id, label, num) {
@@ -285,7 +285,7 @@
             if (p) {
                 amount = p.amount;
                 for (let i in p.tableTimeList) {
-                    tableTimeList[i].list.push(p.tableTimeList[i].list);
+                    tableTimeList[i].list.concat(p.tableTimeList[i].list);
                 }
             }
             this.pathFreq.set(id, { amount: amount + 1, tableTimeList: tableTimeList });
