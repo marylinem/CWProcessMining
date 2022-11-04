@@ -127,7 +127,7 @@
 
             let pathAmount = 0;
             this.pathFreq.forEach((v) => {
-                pathAmount += v;
+                pathAmount += v.amount;
             });
 
 
@@ -140,7 +140,7 @@
             let max = this.rangeMax.value / 100;
 
             pathArr = pathArr.filter((a) => {
-                let p = this.pathFreq.get(a) / pathAmount;
+                let p = this.pathFreq.get(a).amount / pathAmount;
                 return p >= min && p <= max;
             });
 
@@ -163,7 +163,9 @@
                 let prevProcessData = null;
                 let process = null;
                 let last = false;
-                let nCount = this.pathFreq.get(path);
+                let nCount = this.pathFreq.get(path).amount;
+                let timeDifList = this.pathFreq.get(path).timeList;
+                let idx = 0;
                 for (let n of nodes) {
                     if (n == "") {
                         last = true;
@@ -172,7 +174,8 @@
                     process = n;
                     path += process.id + ";";
                     if (!first) {
-                        this.traverseEdgeImpl(filteredRelations, prevProcessData, process, 0, nCount); //TODO: find time dif
+                        this.traverseEdgeImpl(filteredRelations, prevProcessData, process, timeDifList[i] / nCount, nCount); //TODO: find time dif
+                        idx += 1;
                     }
                     else {
                         this.visitNodeImpl(filteredNodes, startNode.id, startNode.label, nCount);
