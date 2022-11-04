@@ -160,7 +160,7 @@
                         first = false;
                     }
                     prevProcessData = process;
-                    this.visitNodeImpl(filteredNodes, process, this.nodes.get(process));
+                    this.visitNodeImpl(filteredNodes, process, this.nodes.get(process).label);
                 }
                 if (!last) {
                     this.traverseEdgeImpl(filteredRelations, process, "_end", 0);
