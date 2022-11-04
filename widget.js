@@ -117,9 +117,12 @@
 
             console.log("PathArray before:", pathArr);
 
+            let min = this.rangeMin.value / 100;
+            let max = this.rangeMax.value / 100;
+
             pathArr.filter((a) => {
                 let p = this.pathFreq.get(a) / pathAmount;
-                return p >= this.rangeMin.value && p <= this.rangeMax.value;
+                return p >= min && p <= max;
             });
 
             console.log("PathArray:", pathArr);
