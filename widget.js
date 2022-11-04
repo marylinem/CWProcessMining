@@ -144,7 +144,7 @@
                 let prevProcessData = null;
                 let process = null;
                 let last = false;
-                let n = this.pathFreq.get(path);
+                let nCount = this.pathFreq.get(path);
                 for (let n of nodes) {
                     if (n == "") {
                         last = true;
@@ -153,19 +153,19 @@
                     process = n;
                     path += process.id + ";";
                     if (!first) {
-                        this.traverseEdgeImpl(filteredRelations, prevProcessData, process, 0, n); //TODO: find time dif
+                        this.traverseEdgeImpl(filteredRelations, prevProcessData, process, 0, nCount); //TODO: find time dif
                     }
                     else {
-                        this.visitNodeImpl(filteredNodes, startNode.id, startNode.label, n);
-                        this.traverseEdgeImpl(filteredRelations, "_start", process, 0, n);
+                        this.visitNodeImpl(filteredNodes, startNode.id, startNode.label, nCount);
+                        this.traverseEdgeImpl(filteredRelations, "_start", process, 0, nCount);
                         first = false;
                     }
                     prevProcessData = process;
-                    this.visitNodeImpl(filteredNodes, process, this.nodes.get(process).label, n);
+                    this.visitNodeImpl(filteredNodes, process, this.nodes.get(process).label, nCount);
                 }
                 if (!last) {
-                    this.traverseEdgeImpl(filteredRelations, process, "_end", 0, n);
-                    this.visitNodeImpl(filteredNodes, endNode.id, endNode.label, n);
+                    this.traverseEdgeImpl(filteredRelations, process, "_end", 0, nCount);
+                    this.visitNodeImpl(filteredNodes, endNode.id, endNode.label, nCount);
                 }
             }
 
