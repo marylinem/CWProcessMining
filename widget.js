@@ -175,7 +175,7 @@
                     path += process.id + ";";
                     if (!first) {
                         this.traverseEdgeImpl(filteredRelations, prevProcessData, process, timeDifList[i] / nCount, nCount); //TODO: find time dif
-                        idx += 1;
+                        i += 1;
                     }
                     else {
                         this.visitNodeImpl(filteredNodes, startNode.id, startNode.label, nCount);
