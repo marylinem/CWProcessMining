@@ -120,7 +120,7 @@
             let min = this.rangeMin.value / 100;
             let max = this.rangeMax.value / 100;
 
-            pathArr.filter((a) => {
+            pathArr = pathArr.filter((a) => {
                 let p = this.pathFreq.get(a) / pathAmount;
                 return p >= min && p <= max;
             });
