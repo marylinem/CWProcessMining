@@ -175,7 +175,7 @@
                     this.visitNodeImpl(filteredNodes, endNode.id, endNode.label, nCount);
                 }
             }
-            calculateStatisticsImpl(filteredNodes, filteredRelations);
+            this.calculateStatisticsImpl(filteredNodes, filteredRelations);
 
             filteredNodes.forEach((n, k) => {
                 let rect = new joint.shapes.standard.Rectangle();
