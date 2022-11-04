@@ -126,6 +126,8 @@
             });
 
             console.log("PathArray:", pathArr);
+            // construct nodes and relations again from filtered paths
+
 
 
             this.nodes.forEach((n, k) => {
@@ -206,7 +208,7 @@
             let p = this.pathFreq.get(id);
             let amount = 0;
             if (p) amount = p;
-            this.pathFreq.set(id, amount);
+            this.pathFreq.set(id, amount + 1);
         }
 
         dateDif(d1, d2) {
@@ -273,6 +275,7 @@
             });
             this.traverseEdge(process.id, "_end", 0);
             this.visitNode(endNode.id, endNode.label);
+            this.visitPath(path);
             this.calculateStatistics();
             this.constructGraph();
         }
