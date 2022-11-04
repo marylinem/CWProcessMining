@@ -85,6 +85,18 @@
             return Math.round(val * 10) / 10; //round to one decimal
         }
 
+        getTimeDivByLabel(label) {
+            let div = 1;
+            switch (label) {
+                case "yrs": div *= 365;
+                case "d": div *= 24;
+                case "h": div *= 60;
+                case "min": div *= 60;
+                case "s": div *= 1000;
+            }
+            return div;
+        }
+
         getTimeLabel(t) {
             if (t == 0) return "-"
             if (t < 1000) return "" + t + "ms";
