@@ -21,6 +21,13 @@
             "ignoreIntegrity": true
         },
         {
+            "kind": "styling",
+            "tag": "com-demo-jointjs-styling",
+            "url": "https://marylinem.github.io/CWProcessMining/widget-styling.js",
+            "integrity": "",
+            "ignoreIntegrity": true
+        },
+        {
             "kind": "builder",
             "tag": "com-demo-jointjs-builder",
             "url": "https://marylinem.github.io/CWProcessMining/widget_builder.js",
