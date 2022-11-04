@@ -272,11 +272,16 @@
         }
 
 
-        visitPath(id) {
+        visitPath(id, timeList) {
             let p = this.pathFreq.get(id);
             let amount = 0;
-            if (p) amount = p;
-            this.pathFreq.set(id, amount + 1);
+            if (p) {
+                amount = p.amount;
+                for (i in p.timeList) {
+                    timeList[i] += p.timeList[i];
+                }
+            }
+            this.pathFreq.set(id, { amount: amount + 1, timeList: timeList });
         }
 
         dateDif(d1, d2) {
@@ -318,6 +323,7 @@
                 label: "End"
             }
             let path = "";
+            let timeDifList = [];
             data.forEach(row => {
                 process = row.dimensions_0;
                 let relation = row.dimensions_1;
@@ -325,13 +331,16 @@
 
                 if (curRelationId == relation.id) {
                     path += process.id + ";";
-                    this.traverseEdge(prevProcessData.id, process.id, this.dateDif(prevDate, date));
+                    let dif = this.dateDif(prevDate, date);
+                    this.traverseEdge(prevProcessData.id, process.id, dif);
+                    timeDifList.push(dif);
                 }
                 else {
                     if (curRelationId) {
                         this.visitNode(endNode.id, endNode.label);
                         this.traverseEdge(prevProcessData.id, "_end", 0);
-                        this.visitPath(path);
+                        this.visitPath(path, timeDifList);
+                        timeDifList = [];
                     }
                     path = process.id + ";";
                     this.visitNode(startNode.id, startNode.label);
