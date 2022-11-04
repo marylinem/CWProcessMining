@@ -106,6 +106,19 @@
 
 
 
+            let pathAmount = 0;
+            this.pathFreq.forEach((v) => {
+                pathAmount += v;
+            });
+
+            let pathArr = new Array(this.pathFreq.keys());
+            pathArr.filter((a) => {
+                let p = this.pathFreq.get(a) / pathAmount;
+                return p >= min && p <= max;
+            });
+
+            console.log("PathArray:", pathArr);
+
 
             this.nodes.forEach((n, k) => {
                 let rect = new joint.shapes.standard.Rectangle();
