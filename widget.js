@@ -296,8 +296,9 @@
                 process = row.dimensions_0;
                 let relation = row.dimensions_1;
                 let date = new Date(row.dimensions_2.id);
-                path += process.id + ";";
+
                 if (curRelationId == relation.id) {
+                    path += process.id + ";";
                     this.traverseEdge(prevProcessData.id, process.id, this.dateDif(prevDate, date));
                 }
                 else {
@@ -305,8 +306,8 @@
                         this.visitNode(endNode.id, endNode.label);
                         this.traverseEdge(prevProcessData.id, "_end", 0);
                         this.visitPath(path);
-                        path = "";
                     }
+                    path = process.id + ";";
                     this.visitNode(startNode.id, startNode.label);
                     this.traverseEdge("_start", process.id, 0);
                     curRelationId = relation.id;
