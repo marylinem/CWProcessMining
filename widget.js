@@ -63,9 +63,9 @@
             this.pathFreq = new Map();
         }
 
-        calculateStatistics() {
-            this.relations.forEach(v => {
-                let node = this.nodes.get(v.n0);
+        calculateStatisticsImpl(nodes, relations) {
+            relations.forEach(v => {
+                let node = nodes.get(v.n0);
                 let namount = node.amount;
                 v.pct = v.val / namount;
                 v.tavg = v.timeList.reduce((a, b) => a + b, 0) / v.val;
@@ -75,6 +75,10 @@
                 v.tmin = v.timeList.reduce((a, b) => Math.min(a, b), Infinity);
                 v.tmax = v.timeList.reduce((a, b) => Math.max(a, b), -Infinity)
             });
+        }
+
+        calculateStatistics() {
+            calculateStatisticsImpl(this.nodes, this.relations);
         }
 
         round(val) {
@@ -171,7 +175,7 @@
                     this.visitNodeImpl(filteredNodes, endNode.id, endNode.label, nCount);
                 }
             }
-
+            calculateStatisticsImpl(filteredNodes, filteredRelations);
 
             filteredNodes.forEach((n, k) => {
                 let rect = new joint.shapes.standard.Rectangle();
