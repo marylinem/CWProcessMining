@@ -253,7 +253,7 @@
                 val = rel.val;
                 timeList = rel.timeList;
             }
-            timeList.concat(timeDif);
+            timeList = timeList.concat(timeDif);
             map.set(key, { val: val + n, n0: n0, n1: n1, timeList: timeList });
         }
 
@@ -285,7 +285,7 @@
             if (p) {
                 amount = p.amount;
                 for (let i in p.tableTimeList) {
-                    tableTimeList[i].list.concat(p.tableTimeList[i].list);
+                    tableTimeList[i].list = tableTimeList[i].list.concat(p.tableTimeList[i].list);
                 }
             }
             this.pathFreq.set(id, { amount: amount + 1, tableTimeList: tableTimeList });
