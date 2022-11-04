@@ -356,7 +356,7 @@
             });
             this.traverseEdge(process.id, "_end", 0);
             this.visitNode(endNode.id, endNode.label);
-            this.visitPath(path);
+            this.visitPath(path, timeDifList);
             this.calculateStatistics();
             this.constructGraph();
         }
