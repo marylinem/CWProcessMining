@@ -147,18 +147,18 @@
                     process = n;
                     path += process.id + ";";
                     if (!first) {
-                        this.traverseEdge(filteredRelations, prevProcessData, process, 0); //TODO: find time dif
+                        this.traverseEdgeImpl(filteredRelations, prevProcessData, process, 0); //TODO: find time dif
                     }
                     else {
-                        this.visitNode(filteredNodes, startNode.id, startNode.label);
-                        this.traverseEdge(filteredRelations, "_start", process, 0);
+                        this.visitNodeImpl(filteredNodes, startNode.id, startNode.label);
+                        this.traverseEdgeImpl(filteredRelations, "_start", process, 0);
                         first = false;
                     }
                     prevProcessData = process;
-                    this.visitNode(filteredNodes, process, this.nodes.get(process));
+                    this.visitNodeImpl(filteredNodes, process, this.nodes.get(process));
                 }
-                this.traverseEdge(filteredRelations, process, "_end", 0);
-                this.visitNode(filteredNodes, endNode.id, endNode.label);
+                this.traverseEdgeImpl(filteredRelations, process, "_end", 0);
+                this.visitNodeImpl(filteredNodes, endNode.id, endNode.label);
 
             }
 
@@ -215,7 +215,7 @@
             });
         }
 
-        traverseEdge(map, n0, n1, timeDif) {
+        traverseEdgeImpl(map, n0, n1, timeDif) {
             let key = n0 + "_" + n1;
             let val = 0;
             let timeList = new Array();
@@ -229,10 +229,10 @@
         }
 
         traverseEdge(n0, n1, timeDif) {
-            this.traverseEdge(this.relations, n0, n1, timeDif);
+            this.traverseEdgeImpl(this.relations, n0, n1, timeDif);
         }
 
-        visitNode(map, id, label) {
+        visitNodeImpl(map, id, label) {
             let n = map.get(id);
             let amount = 0;
             if (n) {
@@ -242,7 +242,7 @@
         }
 
         visitNode(id, label) {
-            this.visitNode(this.nodes, id, label);
+            this.visitNodeImpl(this.nodes, id, label);
         }
 
 
