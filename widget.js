@@ -111,10 +111,12 @@
                 pathAmount += v;
             });
 
+            console.log("PathArray before:", pathArr);
+
             let pathArr = new Array(this.pathFreq.keys());
             pathArr.filter((a) => {
                 let p = this.pathFreq.get(a) / pathAmount;
-                return p >= min && p <= max;
+                return p >= this.rangeMin.value && p <= this.rangeMax.value;
             });
 
             console.log("PathArray:", pathArr);
@@ -273,6 +275,11 @@
             super();
             this._shadowRoot = this.attachShadow({ mode: "open" });
             this._shadowRoot.appendChild(template.content.cloneNode(true));
+
+
+            this.rangeMin = this._shadowRoot.getElementById("rangeMin");
+            this.rangeMax = this._shadowRoot.getElementById("rangeMax");
+
             let select = this._shadowRoot.getElementById("edgeLabel");
             select.addEventListener("change", () => {
                 this.useLabel = select.value;
