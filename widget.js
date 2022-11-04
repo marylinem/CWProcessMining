@@ -144,6 +144,7 @@
                 let prevProcessData = null;
                 let process = null;
                 let last = false;
+                let n = this.pathFreq.get(path);
                 for (let n of nodes) {
                     if (n == "") {
                         last = true;
@@ -152,19 +153,19 @@
                     process = n;
                     path += process.id + ";";
                     if (!first) {
-                        this.traverseEdgeImpl(filteredRelations, prevProcessData, process, 0); //TODO: find time dif
+                        this.traverseEdgeImpl(filteredRelations, prevProcessData, process, 0, n); //TODO: find time dif
                     }
                     else {
-                        this.visitNodeImpl(filteredNodes, startNode.id, startNode.label);
-                        this.traverseEdgeImpl(filteredRelations, "_start", process, 0);
+                        this.visitNodeImpl(filteredNodes, startNode.id, startNode.label, n);
+                        this.traverseEdgeImpl(filteredRelations, "_start", process, 0, n);
                         first = false;
                     }
                     prevProcessData = process;
-                    this.visitNodeImpl(filteredNodes, process, this.nodes.get(process).label);
+                    this.visitNodeImpl(filteredNodes, process, this.nodes.get(process).label, n);
                 }
                 if (!last) {
-                    this.traverseEdgeImpl(filteredRelations, process, "_end", 0);
-                    this.visitNodeImpl(filteredNodes, endNode.id, endNode.label);
+                    this.traverseEdgeImpl(filteredRelations, process, "_end", 0, n);
+                    this.visitNodeImpl(filteredNodes, endNode.id, endNode.label, n);
                 }
             }
 
@@ -221,7 +222,7 @@
             });
         }
 
-        traverseEdgeImpl(map, n0, n1, timeDif) {
+        traverseEdgeImpl(map, n0, n1, timeDif, n) {
             let key = n0 + "_" + n1;
             let val = 0;
             let timeList = new Array();
@@ -231,24 +232,24 @@
                 timeList = rel.timeList;
             }
             timeList.push(timeDif);
-            map.set(key, { val: val + 1, n0: n0, n1: n1, timeList: timeList });
+            map.set(key, { val: val + n, n0: n0, n1: n1, timeList: timeList });
         }
 
         traverseEdge(n0, n1, timeDif) {
-            this.traverseEdgeImpl(this.relations, n0, n1, timeDif);
+            this.traverseEdgeImpl(this.relations, n0, n1, timeDif, 1);
         }
 
-        visitNodeImpl(map, id, label) {
+        visitNodeImpl(map, id, label, n) {
             let n = map.get(id);
             let amount = 0;
             if (n) {
                 amount = n.amount;
             }
-            map.set(id, { label: label, amount: amount + 1 });
+            map.set(id, { label: label, amount: amount + n });
         }
 
         visitNode(id, label) {
-            this.visitNodeImpl(this.nodes, id, label);
+            this.visitNodeImpl(this.nodes, id, label, 1);
         }
 
 
