@@ -280,7 +280,7 @@
             let amount = 0;
             if (p) {
                 amount = p.amount;
-                for (i in p.timeList) {
+                for (let i in p.timeList) {
                     timeList[i] += p.timeList[i];
                 }
             }
