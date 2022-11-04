@@ -128,9 +128,42 @@
             console.log("PathArray:", pathArr);
             // construct nodes and relations again from filtered paths
 
+            let filteredNodes = new Map();
+            let filteredRelations = new Map();
+            let startNode = {
+                id: "_start",
+                label: "Start"
+            }
+            let endNode = {
+                id: "_end",
+                label: "End"
+            }
+            for (let path of pathArr) {
+                let nodes = path.split(";");
+                let first = true;
+                let prevProcessData = null;
+                let process = null;
+                for (let n of nodes) {
+                    process = n;
+                    path += process.id + ";";
+                    if (!first) {
+                        this.traverseEdge(filteredRelations, prevProcessData, process, 0); //TODO: find time dif
+                    }
+                    else {
+                        this.visitNode(filteredNodes, startNode.id, startNode.label);
+                        this.traverseEdge(filteredRelations, "_start", process, 0);
+                        first = false;
+                    }
+                    prevProcessData = process;
+                    this.visitNode(filteredNodes, process, this.nodes.get(process));
+                }
+                this.traverseEdge(filteredRelations, process, "_end", 0);
+                this.visitNode(filteredNodes, endNode.id, endNode.label);
+
+            }
 
 
-            this.nodes.forEach((n, k) => {
+            filteredNodes.forEach((n, k) => {
                 let rect = new joint.shapes.standard.Rectangle();
                 rect.resize(140, 40);
 
@@ -151,7 +184,7 @@
                 nodeMap.set(k, rect);
             })
 
-            this.relations.forEach((r, v) => {
+            filteredRelations.forEach((r, v) => {
                 var link = new joint.shapes.standard.Link();
                 link.source(nodeMap.get(r.n0));
                 link.target(nodeMap.get(r.n1));
@@ -182,27 +215,36 @@
             });
         }
 
-        traverseEdge(n0, n1, timeDif) {
+        traverseEdge(map, n0, n1, timeDif) {
             let key = n0 + "_" + n1;
             let val = 0;
             let timeList = new Array();
-            let rel = this.relations.get(key);
+            let rel = map.get(key);
             if (rel) {
                 val = rel.val;
                 timeList = rel.timeList;
             }
             timeList.push(timeDif);
-            this.relations.set(key, { val: val + 1, n0: n0, n1: n1, timeList: timeList });
+            map.set(key, { val: val + 1, n0: n0, n1: n1, timeList: timeList });
         }
 
-        visitNode(id, label) {
-            let n = this.nodes.get(id);
+        traverseEdge(n0, n1, timeDif) {
+            this.traverseEdge(this.relations, n0, n1, timeDif);
+        }
+
+        visitNode(map, id, label) {
+            let n = map.get(id);
             let amount = 0;
             if (n) {
                 amount = n.amount;
             }
-            this.nodes.set(id, { label: label, amount: amount + 1 });
+            map.set(id, { label: label, amount: amount + 1 });
         }
+
+        visitNode(id, label) {
+            this.visitNode(this.nodes, id, label);
+        }
+
 
         visitPath(id) {
             let p = this.pathFreq.get(id);
