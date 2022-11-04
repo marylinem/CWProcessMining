@@ -78,7 +78,7 @@
         }
 
         calculateStatistics() {
-            calculateStatisticsImpl(this.nodes, this.relations);
+            this.calculateStatisticsImpl(this.nodes, this.relations);
         }
 
         round(val) {
