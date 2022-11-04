@@ -111,9 +111,12 @@
                 pathAmount += v;
             });
 
-            console.log("PathArray before:", pathArr);
+
 
             let pathArr = new Array(this.pathFreq.keys());
+
+            console.log("PathArray before:", pathArr);
+
             pathArr.filter((a) => {
                 let p = this.pathFreq.get(a) / pathAmount;
                 return p >= this.rangeMin.value && p <= this.rangeMax.value;
