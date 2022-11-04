@@ -16,8 +16,11 @@
     </div>
     <input type="range" id="rangeMax" min="0" max="100" value="100">
     <label for="rangeMax">Max %</label>
+    <br>
     <input type="range" id="rangeMin" min="0" max="100" value="0">
     <label for="rangeMin">Min %</label>
+    <br>
+    <button id="buttonApply" type="button">Apply</button>
     <style>
     </style> 
     `;
@@ -335,6 +338,11 @@
             this._shadowRoot = this.attachShadow({ mode: "open" });
             this._shadowRoot.appendChild(template.content.cloneNode(true));
 
+            this._shadowRoot.getElementById("buttonApply").onclick = (ev) => {
+                ev.preventDefault();
+                this.graph.clear();
+                this.constructGraph();
+            };
 
             this.rangeMin = this._shadowRoot.getElementById("rangeMin");
             this.rangeMax = this._shadowRoot.getElementById("rangeMax");
