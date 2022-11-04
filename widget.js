@@ -239,13 +239,13 @@
             this.traverseEdgeImpl(this.relations, n0, n1, timeDif, 1);
         }
 
-        visitNodeImpl(map, id, label, n) {
+        visitNodeImpl(map, id, label, num) {
             let n = map.get(id);
             let amount = 0;
             if (n) {
                 amount = n.amount;
             }
-            map.set(id, { label: label, amount: amount + n });
+            map.set(id, { label: label, amount: amount + num });
         }
 
         visitNode(id, label) {
