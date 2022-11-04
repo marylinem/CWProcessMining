@@ -113,7 +113,7 @@
 
 
 
-            let pathArr = new Array(this.pathFreq.keys());
+            let pathArr = Array.from(this.pathFreq.keys());
 
             console.log("PathArray before:", pathArr);
 
