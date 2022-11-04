@@ -164,7 +164,7 @@
                 let process = null;
                 let last = false;
                 let nCount = this.pathFreq.get(path).amount;
-                let timeDifList = this.pathFreq.get(path).timeList;
+                let timeDifList = this.pathFreq.get(path).tableTimeList;
                 let i = 0;
                 for (let n of nodes) {
                     if (n == "") {
@@ -174,7 +174,7 @@
                     process = n;
                     path += process.id + ";";
                     if (!first) {
-                        this.traverseEdgeImpl(filteredRelations, prevProcessData, process, timeDifList[i] / nCount, nCount); //TODO: find time dif
+                        this.traverseEdgeImpl(filteredRelations, prevProcessData, process, timeDifList[i], nCount); //TODO: find time dif
                         i += 1;
                     }
                     else {
@@ -278,13 +278,17 @@
         visitPath(id, timeList) {
             let p = this.pathFreq.get(id);
             let amount = 0;
+            let tableTimeList = [];
+            for (let t of timeList) {
+                tableTimeList.push({ list: [t] });
+            }
             if (p) {
                 amount = p.amount;
-                for (let i in p.timeList) {
-                    timeList[i] += p.timeList[i];
+                for (let i in p.tableTimeList) {
+                    tableTimeList[i].list.push(p.tableTimeList[i].list);
                 }
             }
-            this.pathFreq.set(id, { amount: amount + 1, timeList: timeList });
+            this.pathFreq.set(id, { amount: amount + 1, tableTimeList: tableTimeList });
         }
 
         dateDif(d1, d2) {
