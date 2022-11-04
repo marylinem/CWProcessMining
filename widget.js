@@ -165,7 +165,7 @@
                 let last = false;
                 let nCount = this.pathFreq.get(path).amount;
                 let timeDifList = this.pathFreq.get(path).timeList;
-                let idx = 0;
+                let i = 0;
                 for (let n of nodes) {
                     if (n == "") {
                         last = true;
