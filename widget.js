@@ -22,6 +22,23 @@
     <br>
     <button id="buttonApply" type="button">Apply</button>
     <style>
+    #buttonApply {
+        background: #346187;
+        border-radius: 3px;
+        color: #fff;
+        text-shadow: none;
+        line-height: 1.5rem;
+        cursor: pointer;
+        white-space: normal;
+        text-align: center;
+        height: 26px;
+        vertical-align: middle;
+        margin: 0 4px;
+        padding: 0 0.5rem;
+        min-width: 2rem;
+        height: 26px;
+        font-size: .875rem;
+    }
     </style> 
     `;
 
