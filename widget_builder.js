@@ -39,6 +39,35 @@
     display: block;
     padding: 1em 1em 1em 1em;
     }
+    #selModel, #createModel {
+        background: #346187;
+        border-radius: 3px;
+        color: #fff;
+        text-shadow: none;
+        line-height: 1.5rem;
+        cursor: pointer;
+        white-space: normal;
+        text-align: center;
+        height: 26px;
+        vertical-align: middle;
+        margin: 0 4px;
+        padding: 0 0.5rem;
+        min-width: 2rem;
+        height: 26px;
+        font-size: .875rem;
+    }
+    label {
+        font-size: 1.125rem;
+        font-weight: 400;
+        cursor: pointer;
+        margin-right: 2rem;
+        font-family: "72fallback","72","72full",Arial,Helvetica,sans-serif;
+        font-size: 1.25rem;
+        text-decoration: none;
+        color: #666;
+        line-height: 1.75;
+        margin-left: 0.25rem;
+    }
     </style>
     `;
     class JointJSBuilderPanel extends HTMLElement {
