@@ -252,7 +252,6 @@
                     }
                 })
                 link.addTo(this.graph);
-                link.onclick = () => { console.log("Clicked link", link); };
             })
             this.graph.resetCells(this.graph.getCells());
             joint.layout.DirectedGraph.layout(this.graph, {
@@ -426,6 +425,41 @@
             this.paper.options.defaultConnector = {
                 name: 'curve'
             }
+
+            this.paper.on('element:pointerdblclick', function (elementView) {
+                resetAll(this.paper);
+
+                var currentElement = elementView.model;
+                currentElement.attr('body/stroke', 'orange');
+                var event = new Event("onClick");
+                this.dispatchEvent(event);
+            });
+
+            this.paper.on('link:pointerdblclick', function (linkView) {
+                resetAll(this.paper);
+
+                var currentLink = linkView.model;
+                currentLink.attr('line/stroke', 'orange');
+                var event = new Event("onClick");
+                this.dispatchEvent(event);
+            });
+
+            function resetAll(paper) {
+
+                var elements = paper.model.getElements();
+                for (var i = 0, ii = elements.length; i < ii; i++) {
+                    var currentElement = elements[i];
+                    currentElement.attr('body/stroke', "rgb(222, 222, 222)");
+                }
+
+                var links = paper.model.getLinks();
+                for (var j = 0, jj = links.length; j < jj; j++) {
+                    var currentLink = links[j];
+                    currentLink.attr('line/stroke', '#346187');
+
+                }
+            }
+
         }
         onCustomWidgetBeforeUpdate(changedProperties) {
             this._props = { ...this._props, ...changedProperties };
