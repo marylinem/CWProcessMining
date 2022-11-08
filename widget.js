@@ -461,7 +461,7 @@
                         strokeWidth: '1px'
                     }
                 })
-                link.addTo(this.graph);
+                link.addTo(this.model);
 
 
                 //currentLink.attr('line/stroke', 'orange');
