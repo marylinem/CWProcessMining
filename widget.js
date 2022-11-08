@@ -428,9 +428,9 @@
 
             this.paper.on('element:pointerdblclick', function (elementView) {
                 //resetAll(this);
-                console.log("ElementView", linkView);
-                var currentElement = elementView.model;
-                currentElement.attr('body/stroke', 'orange');
+                console.log("ElementView", elementView);
+                // var currentElement = elementView.model;
+                // currentElement.attr('body/stroke', 'orange');
                 //var event = new Event("onClick");
                 //this.dispatchEvent(event);
             });
@@ -439,33 +439,33 @@
                 console.log("LinkView", linkView);
                 //resetAll(this);
 
-                var currentLink = linkView.model;
+                // var currentLink = linkView.model;
 
-                var link = new joint.shapes.standard.Link();
-                link.source(linkView.sourceView.model);
-                link.target(linkView.targetView.model);
-                link.appendLabel({
-                    attrs: {
-                        text: {
-                            text: "TEST",
-                            fill: "#346187",
-                        },
+                // var link = new joint.shapes.standard.Link();
+                // link.source(linkView.sourceView.model);
+                // link.target(linkView.targetView.model);
+                // link.appendLabel({
+                //     attrs: {
+                //         text: {
+                //             text: "TEST",
+                //             fill: "#346187",
+                //         },
 
-                    }
-                });
-                link.attr({
-                    strokeLinejoin: 'round',
-                    strokeLinecap: 'round',
-                    line: {
-                        stroke: 'orange',
-                        strokeWidth: '1px'
-                    }
-                })
-                link.addTo(this.model);
+                //     }
+                // });
+                // link.attr({
+                //     strokeLinejoin: 'round',
+                //     strokeLinecap: 'round',
+                //     line: {
+                //         stroke: 'orange',
+                //         strokeWidth: '1px'
+                //     }
+                // })
+                // link.addTo(this.model);
 
 
-                //currentLink.attr('line/stroke', 'orange');
-                currentLink.remove();
+                // //currentLink.attr('line/stroke', 'orange');
+                // currentLink.remove();
                 //var event = new Event("onClick");
                 //this.dispatchEvent(event);
             });
