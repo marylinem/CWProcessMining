@@ -440,8 +440,7 @@
                 //resetAll(this);
 
                 var currentLink = linkView.model;
-                //currentLink.attr('line/stroke', 'orange');
-                currentLink.remove();
+
                 var link = new joint.shapes.standard.Link();
                 link.source(currentLink.sourceView.model);
                 link.target(currentLink.targetView.model);
@@ -465,7 +464,8 @@
                 link.addTo(this.graph);
 
 
-
+                //currentLink.attr('line/stroke', 'orange');
+                currentLink.remove();
                 //var event = new Event("onClick");
                 //this.dispatchEvent(event);
             });
