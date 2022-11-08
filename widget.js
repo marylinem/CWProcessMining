@@ -431,8 +431,8 @@
                 console.log("ElementView", linkView);
                 var currentElement = elementView.model;
                 currentElement.attr('body/stroke', 'orange');
-                var event = new Event("onClick");
-                this.dispatchEvent(event);
+                //var event = new Event("onClick");
+                //this.dispatchEvent(event);
             });
 
             this.paper.on('link:pointerdblclick', function (linkView) {
@@ -441,8 +441,8 @@
 
                 var currentLink = linkView.model;
                 currentLink.attr('line/stroke', 'orange');
-                var event = new Event("onClick");
-                this.dispatchEvent(event);
+                //var event = new Event("onClick");
+                //this.dispatchEvent(event);
             });
 
             function resetAll(paper) {
