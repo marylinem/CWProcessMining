@@ -10,7 +10,8 @@
     "license": "",
     "imports": [
         "data-binding",
-        "datasource"
+        "datasource",
+        "visualization-controls"
     ],
     "webcomponents": [
         {
@@ -42,7 +43,17 @@
             "default": "amt"
         }
     },
-    "methods": {},
+    "methods": {
+        "updateTextOutput": {
+            "description": "updates text output when selecting edge or node",
+            "parameters": [
+                {
+                    "name": "textField",
+                    "type": "Text"
+                }
+            ]
+        }
+    },
     "events": {
         "onClick": {
             "description": "Called when the user clicks the Colored Box."

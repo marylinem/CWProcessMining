@@ -147,8 +147,8 @@
             console.log("PathArray:", pathArr);
             // construct nodes and relations again from filtered paths
 
-            let filteredNodes = new Map();
-            let filteredRelations = new Map();
+            this.filteredNodes = new Map();
+            this.filteredRelations = new Map();
             let startNode = {
                 id: "_start",
                 label: "Start"
@@ -174,25 +174,25 @@
                     process = n;
                     path += process.id + ";";
                     if (!first) {
-                        this.traverseEdgeImpl(filteredRelations, prevProcessData, process, timeDifList[i].list, nCount); //TODO: find time dif
+                        this.traverseEdgeImpl(this.filteredRelations, prevProcessData, process, timeDifList[i].list, nCount); //TODO: find time dif
                         i += 1;
                     }
                     else {
-                        this.visitNodeImpl(filteredNodes, startNode.id, startNode.label, nCount);
-                        this.traverseEdgeImpl(filteredRelations, "_start", process, 0, nCount);
+                        this.visitNodeImpl(this.filteredNodes, startNode.id, startNode.label, nCount);
+                        this.traverseEdgeImpl(this.filteredRelations, "_start", process, 0, nCount);
                         first = false;
                     }
                     prevProcessData = process;
-                    this.visitNodeImpl(filteredNodes, process, this.nodes.get(process).label, nCount);
+                    this.visitNodeImpl(this.filteredNodes, process, this.nodes.get(process).label, nCount);
                 }
                 if (!last) {
-                    this.traverseEdgeImpl(filteredRelations, process, "_end", 0, nCount);
-                    this.visitNodeImpl(filteredNodes, endNode.id, endNode.label, nCount);
+                    this.traverseEdgeImpl(this.filteredRelations, process, "_end", 0, nCount);
+                    this.visitNodeImpl(this.filteredNodes, endNode.id, endNode.label, nCount);
                 }
             }
-            this.calculateStatisticsImpl(filteredNodes, filteredRelations);
+            this.calculateStatisticsImpl(this.filteredNodes, this.filteredRelations);
 
-            filteredNodes.forEach((n, k) => {
+            this.filteredNodes.forEach((n, k) => {
                 let rect = new joint.shapes.standard.Rectangle();
                 rect.resize(140, 40);
 
@@ -213,7 +213,7 @@
                 nodeMap.set(k, rect);
             })
 
-            filteredRelations.forEach((r, v) => {
+            this.filteredRelations.forEach((r, v) => {
                 var link = new joint.shapes.standard.Link();
                 link.source(nodeMap.get(r.n0));
                 link.target(nodeMap.get(r.n1));
@@ -235,6 +235,7 @@
                     }
                 })
                 link.addTo(this.graph);
+                link.onclick = () => { console.log("Clicked link", link); };
             })
             this.graph.resetCells(this.graph.getCells());
             joint.layout.DirectedGraph.layout(this.graph, {
@@ -423,6 +424,10 @@
         onCustomWidgetResize(width, height) {
             //this.paper.setDimensions(width, height);
 
+        }
+
+        updateTextOutput(textField) {
+            textField.applyText("Test");
         }
     }
 
