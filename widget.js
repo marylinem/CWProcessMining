@@ -427,7 +427,7 @@
             }
 
             this.paper.on('element:pointerdblclick', function (elementView) {
-                resetAll(this.paper);
+                resetAll(this);
                 console.log("ElementView", linkView);
                 var currentElement = elementView.model;
                 currentElement.attr('body/stroke', 'orange');
@@ -437,7 +437,7 @@
 
             this.paper.on('link:pointerdblclick', function (linkView) {
                 console.log("LinkView", linkView);
-                resetAll(this.paper);
+                resetAll(this);
 
                 var currentLink = linkView.model;
                 currentLink.attr('line/stroke', 'orange');
