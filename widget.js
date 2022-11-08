@@ -440,7 +440,32 @@
                 //resetAll(this);
 
                 var currentLink = linkView.model;
-                currentLink.attr('line/stroke', 'orange');
+                //currentLink.attr('line/stroke', 'orange');
+                currentLink.remove();
+                var link = new joint.shapes.standard.Link();
+                link.source(currentLink.sourceView.model);
+                link.target(currentLink.targetView.model);
+                link.appendLabel({
+                    attrs: {
+                        text: {
+                            text: "TEST",
+                            fill: "#346187",
+                        },
+
+                    }
+                });
+                link.attr({
+                    strokeLinejoin: 'round',
+                    strokeLinecap: 'round',
+                    line: {
+                        stroke: 'orange',
+                        strokeWidth: '1px'
+                    }
+                })
+                link.addTo(this.graph);
+
+
+
                 //var event = new Event("onClick");
                 //this.dispatchEvent(event);
             });
