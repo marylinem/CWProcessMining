@@ -436,8 +436,9 @@
             });
 
             this.paper.on('link:pointerdblclick', function (linkView) {
-                resetAll(this.paper);
                 console.log("LinkView", linkView);
+                resetAll(this.paper);
+
                 var currentLink = linkView.model;
                 currentLink.attr('line/stroke', 'orange');
                 var event = new Event("onClick");
@@ -446,13 +447,13 @@
 
             function resetAll(paper) {
 
-                var elements = paper.graph.getElements();
+                var elements = paper.model.getElements();
                 for (var i = 0, ii = elements.length; i < ii; i++) {
                     var currentElement = elements[i];
                     currentElement.attr('body/stroke', "rgb(222, 222, 222)");
                 }
 
-                var links = paper.graph.getLinks();
+                var links = paper.model.getLinks();
                 for (var j = 0, jj = links.length; j < jj; j++) {
                     var currentLink = links[j];
                     currentLink.attr('line/stroke', '#346187');
