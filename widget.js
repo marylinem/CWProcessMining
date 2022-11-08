@@ -442,8 +442,8 @@
                 var currentLink = linkView.model;
 
                 var link = new joint.shapes.standard.Link();
-                link.source(currentLink.attributes.source);
-                link.target(currentLink.attributes.target);
+                link.source(linkView.sourceView.model);
+                link.target(linkView.targetView.model);
                 link.appendLabel({
                     attrs: {
                         text: {
