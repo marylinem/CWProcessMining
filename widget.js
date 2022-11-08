@@ -426,66 +426,6 @@
                 name: 'curve'
             }
 
-            this.paper.on('element:pointerdblclick', function (elementView) {
-                //resetAll(this);
-                console.log("ElementView", elementView);
-                // var currentElement = elementView.model;
-                // currentElement.attr('body/stroke', 'orange');
-                //var event = new Event("onClick");
-                //this.dispatchEvent(event);
-            });
-
-            this.paper.on('link:pointerdblclick', function (linkView) {
-                console.log("LinkView", linkView);
-                //resetAll(this);
-
-                // var currentLink = linkView.model;
-
-                // var link = new joint.shapes.standard.Link();
-                // link.source(linkView.sourceView.model);
-                // link.target(linkView.targetView.model);
-                // link.appendLabel({
-                //     attrs: {
-                //         text: {
-                //             text: "TEST",
-                //             fill: "#346187",
-                //         },
-
-                //     }
-                // });
-                // link.attr({
-                //     strokeLinejoin: 'round',
-                //     strokeLinecap: 'round',
-                //     line: {
-                //         stroke: 'orange',
-                //         strokeWidth: '1px'
-                //     }
-                // })
-                // link.addTo(this.model);
-
-
-                // //currentLink.attr('line/stroke', 'orange');
-                // currentLink.remove();
-                //var event = new Event("onClick");
-                //this.dispatchEvent(event);
-            });
-
-            function resetAll(paper) {
-
-                var elements = paper.model.getElements();
-                for (var i = 0, ii = elements.length; i < ii; i++) {
-                    var currentElement = elements[i];
-                    currentElement.attr('body/stroke', "rgb(222, 222, 222)");
-                }
-
-                var links = paper.model.getLinks();
-                for (var j = 0, jj = links.length; j < jj; j++) {
-                    var currentLink = links[j];
-                    currentLink.attr('line/stroke', '#346187');
-
-                }
-            }
-
         }
         onCustomWidgetBeforeUpdate(changedProperties) {
             this._props = { ...this._props, ...changedProperties };
