@@ -429,6 +429,10 @@
                 console.log('element dbl click');
                 elv.model.attr('body/stroke', 'orange');
             });
+            this.paper.on('link:pointerdblclick', (elv) => {
+                console.log('link dbl click');
+                elv.model.attr('line/stroke', 'orange');
+            });
         }
         onCustomWidgetBeforeUpdate(changedProperties) {
             this._props = { ...this._props, ...changedProperties };
