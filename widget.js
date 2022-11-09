@@ -421,18 +421,24 @@
                 gridSize: 1,
                 cellViewNamespace: namespace
             });
-
+            let _this = this;
             this.paper.options.defaultConnector = {
                 name: 'curve'
             }
             this.paper.on('element:pointerdblclick', (elv) => {
+                _this.reset();
                 console.log('element dbl click');
                 elv.model.attr('body/stroke', 'orange');
             });
             this.paper.on('link:pointerdblclick', (elv) => {
+                _this.reset();
                 console.log('link dbl click');
                 elv.model.attr('line/stroke', 'orange');
             });
+        }
+        reset() {
+            this.paper.getElements().forEach((e) => { e.attr('body/stroke', 'rgb(222, 222, 222)'); });
+            this.paper.getLinks().forEach((e) => { e.attr('line/stroke', '#346187'); });
         }
         onCustomWidgetBeforeUpdate(changedProperties) {
             this._props = { ...this._props, ...changedProperties };
