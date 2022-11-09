@@ -137,7 +137,6 @@
                 await this.createModel();
                 this._submit(ev);
             };
-            console.log(Application.getWidgets({ type: WidgetType.Table }));
         }
         _submit(e) {
             e.preventDefault();

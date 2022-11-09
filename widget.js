@@ -476,7 +476,6 @@
                         let data = Array.from(this.flowChartData.data);
                         data.sort((a, b) => strComp(a.dimensions_1.id, b.dimensions_1.id) || strComp(b.dimensions_2.id, a.dimensions_2.id));
                         let curRelationId = null;
-                        let prevProcessData = null;
                         let process = null;
                         let path = "";
                         let dim0Set = new Set();
@@ -496,7 +495,7 @@
                             }
                             return path.includes(selection);
                         }
-
+                        console.log("Current Filter: ", this.selectedPath);
                         data.forEach(row => {
                             process = row.dimensions_0;
                             let relation = row.dimensions_1;
@@ -512,19 +511,20 @@
                                     dim1SetTemp.forEach(e => dim1Set.add(e));
                                     dim2SetTemp.forEach(e => dim2Set.add(e));
                                 }
+                                else if (curRelationId) console.log("Removing Path:", path);
                                 dim0SetTemp.clear();
                                 dim1SetTemp.clear();
                                 dim2SetTemp.clear();
                                 path = process.id + ";";
                                 curRelationId = relation.id;
                             }
-                            prevProcessData = process;
                         });
                         if (shouldFilterPath(path, this.selectedPath, this.filteredPaths)) {
                             dim0SetTemp.forEach(e => dim0Set.add(e));
                             dim1SetTemp.forEach(e => dim1Set.add(e));
                             dim2SetTemp.forEach(e => dim2Set.add(e));
                         }
+                        else console.log("Removing Path:", path);
                         await ds.setDimensionFilter(dbDims[0], Array.from(dim0Set));
                         await ds.setDimensionFilter(dbDims[1], Array.from(dim1Set));
                         await ds.setDimensionFilter(dbDims[2], Array.from(dim2Set));
