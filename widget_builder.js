@@ -36,6 +36,13 @@
     <br>
     <button id="createModel" type="button">Apply</button>
     <br>
+    <label for="selWidget">Select Widget to apply Filter<br></label>
+    <div class="selectdiv">
+    <select id="selWidget">
+        <option>--NONE--</option>
+    </select>
+    </div>
+    <br>
     <br>
     </div>
     <style>
@@ -130,6 +137,7 @@
                 await this.createModel();
                 this._submit(ev);
             };
+            console.log(Application.getWidgets({ type: WidgetType.Table }));
         }
         _submit(e) {
             e.preventDefault();
