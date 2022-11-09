@@ -437,8 +437,8 @@
             });
         }
         reset() {
-            this.paper.getElements().forEach((e) => { e.attr('body/stroke', 'rgb(222, 222, 222)'); });
-            this.paper.getLinks().forEach((e) => { e.attr('line/stroke', '#346187'); });
+            this.graph.getElements().forEach((e) => { e.attr('body/stroke', 'rgb(222, 222, 222)'); });
+            this.graph.getLinks().forEach((e) => { e.attr('line/stroke', '#346187'); });
         }
         onCustomWidgetBeforeUpdate(changedProperties) {
             this._props = { ...this._props, ...changedProperties };
