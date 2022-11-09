@@ -258,6 +258,7 @@
                 edgeSep: 100,
                 rankDir: "TB"
             });
+            this.paper.scaleContentToFit();
         }
 
         traverseEdgeImpl(map, n0, n1, timeDif, n) {
