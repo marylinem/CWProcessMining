@@ -431,12 +431,13 @@
                 _this.reset();
                 console.log('element dbl click');
                 elv.model.attr('body/stroke', 'orange');
-                console.log(elv.model);
+                console.log(elv.model.attributes.attrs.body._cwid);
             });
             this.paper.on('link:pointerdblclick', (elv) => {
                 _this.reset();
                 console.log('link dbl click');
                 elv.model.attr('line/stroke', 'orange');
+                console.log(elv.model.attributes.attrs.body._cwid);
             });
         }
         reset() {
