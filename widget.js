@@ -425,7 +425,7 @@
             this.paper.options.defaultConnector = {
                 name: 'curve'
             }
-
+            this.paper.on('element:pointerdblclick', (elv) => { console.log('element dbl click'); });
         }
         onCustomWidgetBeforeUpdate(changedProperties) {
             this._props = { ...this._props, ...changedProperties };
