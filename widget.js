@@ -500,7 +500,6 @@
                                 curRelationId = relation.id;
                             }
                             prevProcessData = process;
-                            prevDate = date;
                         });
                         if (path.includes(this.selectedPath)) {
                             dim0SetTemp.forEach(e => dim0Set.add(e));
