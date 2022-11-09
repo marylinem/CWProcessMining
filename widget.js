@@ -546,7 +546,7 @@
 
         onCustomWidgetResize(width, height) {
             //this.paper.setDimensions(width, height);
-
+            this.scaleContentToFit();
         }
 
         updateTextOutput(textField) {
