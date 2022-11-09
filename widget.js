@@ -219,6 +219,7 @@
                         stroke: "rgb(222, 222, 222)",
                         rx: "1px",
                         ry: "1px",
+                        _cwid: k,
                     },
                     label: {
                         text: n.label,
@@ -238,6 +239,7 @@
                     attrs: {
                         text: {
                             text: this.getEdgeLabel(r),
+                            _cwid: v,
                             fill: "#346187",
                         },
 
@@ -429,6 +431,7 @@
                 _this.reset();
                 console.log('element dbl click');
                 elv.model.attr('body/stroke', 'orange');
+                console.log(elv.model.attributes.body._cwid);
             });
             this.paper.on('link:pointerdblclick', (elv) => {
                 _this.reset();
