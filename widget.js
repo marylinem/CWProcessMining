@@ -239,7 +239,6 @@
                     attrs: {
                         text: {
                             text: this.getEdgeLabel(r),
-                            _cwid: v,
                             fill: "#346187",
                         },
 
@@ -250,6 +249,7 @@
                     strokeLinecap: 'round',
                     line: {
                         stroke: '#346187',
+                        _cwid: v,
                         strokeWidth: '1px'
                     }
                 })
@@ -437,7 +437,7 @@
                 _this.reset();
                 console.log('link dbl click');
                 elv.model.attr('line/stroke', 'orange');
-                console.log(elv.model.attributes.attrs.body._cwid);
+                console.log(elv.model.attributes.attrs.line._cwid);
             });
         }
         reset() {
