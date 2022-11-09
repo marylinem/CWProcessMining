@@ -149,23 +149,24 @@
 
 
 
-            let pathArr = Array.from(this.pathFreq.keys());
+            this.filteredPaths = Array.from(this.pathFreq.keys());
 
-            console.log("PathArray before:", pathArr);
+            console.log("PathArray before:", this.filteredPaths);
 
             let min = this.rangeMin.value / 100;
             let max = this.rangeMax.value / 100;
 
-            pathArr = pathArr.filter((a) => {
+            this.filteredPaths = this.filteredPaths.filter((a) => {
                 let p = this.pathFreq.get(a).amount / pathAmount;
                 return p >= min && p <= max;
             });
 
-            console.log("PathArray:", pathArr);
+            console.log("PathArray:", this.filteredPaths);
             // construct nodes and relations again from filtered paths
 
             this.filteredNodes = new Map();
             this.filteredRelations = new Map();
+            this.selectedPath = null;
             let startNode = {
                 id: "_start",
                 label: "Start"
@@ -174,7 +175,7 @@
                 id: "_end",
                 label: "End"
             }
-            for (let path of pathArr) {
+            for (let path of this.filteredPaths) {
                 let nodes = path.split(";");
                 let first = true;
                 let prevProcessData = null;
@@ -431,19 +432,89 @@
                 _this.reset();
                 console.log('element dbl click');
                 elv.model.attr('body/stroke', 'orange');
-                console.log(elv.model.attributes.attrs.body._cwid);
+                _this.selectedPath = elv.model.attributes.attrs.body._cwid;
+                _this.filterDS();
             });
             this.paper.on('link:pointerdblclick', (elv) => {
                 _this.reset();
                 console.log('link dbl click');
                 elv.model.attr('line/stroke', 'orange');
-                console.log(elv.model.attributes.attrs.line._cwid);
+                let r = _this.filteredRelations.get(elv.model.attributes.attrs.line._cwid);
+                _this.selectedPath = r.n0 + ";" + r.n1;
+                _this.filterDS();
             });
         }
         reset() {
             this.graph.getElements().forEach((e) => { e.attr('body/stroke', 'rgb(222, 222, 222)'); });
             this.graph.getLinks().forEach((e) => { e.attr('line/stroke', '#346187'); });
         }
+
+
+        async filterDS() {
+            if (this.dataBindings && this.selectedPath) {
+                const db = this.dataBindings.getDataBinding('flowChartData');
+                if (db) {
+                    const ds = await db.getDataSource();
+                    if (ds) {
+                        let dbDims = db.getDimensions("dimensions");
+                        let data = Array.from(this.flowChartData.data);
+                        data.sort((a, b) => strComp(a.dimensions_1.id, b.dimensions_1.id) || strComp(b.dimensions_2.id, a.dimensions_2.id));
+                        let curRelationId = null;
+                        let prevProcessData = null;
+                        let prevDate = null;
+                        let process = null;
+                        let startNode = {
+                            id: "_start",
+                            label: "Start"
+                        }
+                        let endNode = {
+                            id: "_end",
+                            label: "End"
+                        }
+                        let path = "";
+                        let dim0Set = new Set();
+                        let dim1Set = new Set();
+                        let dim2Set = new Set();
+                        let dim0SetTemp = new Set();
+                        let dim1SetTemp = new Set();
+                        let dim2SetTemp = new Set();
+                        data.forEach(row => {
+                            process = row.dimensions_0;
+                            let relation = row.dimensions_1;
+                            dim0SetTemp.add(row.dimensions_0);
+                            dim1SetTemp.add(row.dimensions_1);
+                            dim2SetTemp.add(row.dimensions_2);
+                            if (curRelationId == relation.id) {
+                                path += process.id + ";";
+                            }
+                            else {
+                                if (curRelationId && path.includes(this.selectedPath)) {
+                                    dim0SetTemp.forEach(e => dim0Set.add(e));
+                                    dim1SetTemp.forEach(e => dim1Set.add(e));
+                                    dim2SetTemp.forEach(e => dim2Set.add(e));
+                                }
+                                dim0SetTemp.clear();
+                                dim1SetTemp.clear();
+                                dim2SetTemp.clear();
+                                path = process.id + ";";
+                                curRelationId = relation.id;
+                            }
+                            prevProcessData = process;
+                            prevDate = date;
+                        });
+                        if (path.includes(this.selectedPath)) {
+                            dim0SetTemp.forEach(e => dim0Set.add(e));
+                            dim1SetTemp.forEach(e => dim1Set.add(e));
+                            dim2SetTemp.forEach(e => dim2Set.add(e));
+                        }
+                        await ds.setDimensionFilter(dbDims[0], Array.from(dim0Set));
+                        await ds.setDimensionFilter(dbDims[1], Array.from(dim1Set));
+                        await ds.setDimensionFilter(dbDims[2], Array.from(dim2Set));
+                    }
+                }
+            }
+        }
+
         onCustomWidgetBeforeUpdate(changedProperties) {
             this._props = { ...this._props, ...changedProperties };
         }
