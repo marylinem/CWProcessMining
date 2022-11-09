@@ -21,6 +21,8 @@
     <label for="rangeMin">Min %</label>
     <br>
     <button id="buttonApply" type="button">Apply</button>
+    <br>
+    <button id="buttonReset" type="button">Reset Filter</button>
     <style>
     #buttonApply {
         background: #346187;
@@ -166,7 +168,6 @@
 
             this.filteredNodes = new Map();
             this.filteredRelations = new Map();
-            this.selectedPath = null;
             let startNode = {
                 id: "_start",
                 label: "Start"
@@ -224,7 +225,7 @@
                     },
                     label: {
                         text: n.label,
-                        fill: '#485c6b'
+                        fill: n == this.selectedPath ? 'orange' : '#485c6b'
                     }
                 });
 
@@ -249,7 +250,7 @@
                     strokeLinejoin: 'round',
                     strokeLinecap: 'round',
                     line: {
-                        stroke: '#346187',
+                        stroke: (r.n0 + ";" + r.n1) == this.selectedPath ? 'orange' : '#346187',
                         _cwid: v,
                         strokeWidth: '1px'
                     }
@@ -396,6 +397,11 @@
                 this.constructGraph();
             };
 
+            this._shadowRoot.getElementById("buttonReset").onclick = (ev) => {
+                ev.preventDefault();
+                this.resetFilter();
+            };
+
             this.rangeMin = this._shadowRoot.getElementById("rangeMin");
             this.rangeMax = this._shadowRoot.getElementById("rangeMax");
 
@@ -449,7 +455,21 @@
             this.graph.getLinks().forEach((e) => { e.attr('line/stroke', '#346187'); });
         }
 
-
+        async resetFilter() {
+            this.selectedPath = null;
+            if (this.dataBindings) {
+                const db = this.dataBindings.getDataBinding('flowChartData');
+                if (db) {
+                    const ds = await db.getDataSource();
+                    if (ds) {
+                        let dbDims = db.getDimensions("dimensions");
+                        ds.removeDimensionFilter(dbDims[0]);
+                        ds.removeDimensionFilter(dbDims[1]);
+                        ds.removeDimensionFilter(dbDims[2]);
+                    }
+                }
+            }
+        }
         async filterDS() {
             if (this.dataBindings && this.selectedPath) {
                 const db = this.dataBindings.getDataBinding('flowChartData');
