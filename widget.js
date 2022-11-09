@@ -431,7 +431,7 @@
                 _this.reset();
                 console.log('element dbl click');
                 elv.model.attr('body/stroke', 'orange');
-                console.log(elv.model.attributes.body._cwid);
+                console.log(elv.model);
             });
             this.paper.on('link:pointerdblclick', (elv) => {
                 _this.reset();
