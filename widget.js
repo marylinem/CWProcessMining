@@ -189,7 +189,6 @@
                         break;
                     }
                     process = n;
-                    path += process.id + ";";
                     if (!first) {
                         this.traverseEdgeImpl(this.filteredRelations, prevProcessData, process, timeDifList[i].list, nCount); //TODO: find time dif
                         i += 1;
