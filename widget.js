@@ -499,9 +499,7 @@
                         data.forEach(row => {
                             process = row.dimensions_0;
                             let relation = row.dimensions_1;
-                            dim0SetTemp.add(row.dimensions_0);
-                            dim1SetTemp.add(row.dimensions_1);
-                            dim2SetTemp.add(row.dimensions_2);
+
                             if (curRelationId == relation.id) {
                                 path += process.id + ";";
                             }
@@ -518,6 +516,9 @@
                                 path = process.id + ";";
                                 curRelationId = relation.id;
                             }
+                            dim0SetTemp.add(row.dimensions_0);
+                            dim1SetTemp.add(row.dimensions_1);
+                            dim2SetTemp.add(row.dimensions_2);
                         });
                         if (shouldFilterPath(path, this.selectedPath, this.filteredPaths)) {
                             dim0SetTemp.forEach(e => dim0Set.add(e));
