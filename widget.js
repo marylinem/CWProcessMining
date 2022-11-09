@@ -181,13 +181,11 @@
                 let first = true;
                 let prevProcessData = null;
                 let process = null;
-                let last = false;
                 let nCount = this.pathFreq.get(path).amount;
                 let timeDifList = this.pathFreq.get(path).tableTimeList;
                 let i = 0;
                 for (let n of nodes) {
                     if (n == "") {
-                        last = true;
                         break;
                     }
                     process = n;
@@ -204,10 +202,8 @@
                     prevProcessData = process;
                     this.visitNodeImpl(this.filteredNodes, process, this.nodes.get(process).label, nCount);
                 }
-                if (!last) {
-                    this.traverseEdgeImpl(this.filteredRelations, process, "_end", 0, nCount);
-                    this.visitNodeImpl(this.filteredNodes, endNode.id, endNode.label, nCount);
-                }
+                this.traverseEdgeImpl(this.filteredRelations, process, "_end", 0, nCount);
+                this.visitNodeImpl(this.filteredNodes, endNode.id, endNode.label, nCount);
             }
             this.calculateStatisticsImpl(this.filteredNodes, this.filteredRelations);
 
