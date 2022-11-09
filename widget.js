@@ -485,8 +485,8 @@
                         let dim1SetTemp = new Set();
                         let dim2SetTemp = new Set();
 
-                        function shouldFilterPath(path, selection) {
-                            if (!this.filteredPaths.includes(path)) return false;
+                        function shouldFilterPath(path, selection, preFilter) {
+                            if (!preFilter.includes(path)) return false;
                             if (selection.startsWith("_start;")) {
                                 return path.startsWith(selection.split(";")[1]);
                             }
@@ -506,7 +506,7 @@
                                 path += process.id + ";";
                             }
                             else {
-                                if (curRelationId && shouldFilterPath(path, this.selectedPath)) {
+                                if (curRelationId && shouldFilterPath(path, this.selectedPath, this.filteredPaths)) {
                                     dim0SetTemp.forEach(e => dim0Set.add(e));
                                     dim1SetTemp.forEach(e => dim1Set.add(e));
                                     dim2SetTemp.forEach(e => dim2Set.add(e));
@@ -519,7 +519,7 @@
                             }
                             prevProcessData = process;
                         });
-                        if (shouldFilterPath(path, this.selectedPath)) {
+                        if (shouldFilterPath(path, this.selectedPath, this.filteredPaths)) {
                             dim0SetTemp.forEach(e => dim0Set.add(e));
                             dim1SetTemp.forEach(e => dim1Set.add(e));
                             dim2SetTemp.forEach(e => dim2Set.add(e));
