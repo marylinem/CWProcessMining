@@ -488,7 +488,7 @@
                                 path += process.id + ";";
                             }
                             else {
-                                if (curRelationId && path.includes(this.selectedPath)) {
+                                if (curRelationId && path.includes(this.selectedPath) && this.filteredPaths.includes(path)) {
                                     dim0SetTemp.forEach(e => dim0Set.add(e));
                                     dim1SetTemp.forEach(e => dim1Set.add(e));
                                     dim2SetTemp.forEach(e => dim2Set.add(e));
@@ -501,7 +501,7 @@
                             }
                             prevProcessData = process;
                         });
-                        if (path.includes(this.selectedPath)) {
+                        if (path.includes(this.selectedPath) && this.filteredPaths.includes(path)) {
                             dim0SetTemp.forEach(e => dim0Set.add(e));
                             dim1SetTemp.forEach(e => dim1Set.add(e));
                             dim2SetTemp.forEach(e => dim2Set.add(e));
