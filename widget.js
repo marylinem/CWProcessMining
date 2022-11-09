@@ -258,7 +258,7 @@
                 edgeSep: 100,
                 rankDir: "TB"
             });
-            this.paper.scaleContentToFit();
+            this.paper.scaleContentToFit({ maxScaleX: 1.0, maxScaleY: 1.0 });
         }
 
         traverseEdgeImpl(map, n0, n1, timeDif, n) {
@@ -546,7 +546,7 @@
 
         onCustomWidgetResize(width, height) {
             //this.paper.setDimensions(width, height);
-            this.scaleContentToFit();
+            this.scaleContentToFit({ maxScaleX: 1.0, maxScaleY: 1.0 });
         }
 
         updateTextOutput(textField) {
